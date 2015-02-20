@@ -6,5 +6,6 @@
 #define WINDOW_WARNING "Aviso - Movie Player"
 #define WINDOW_ABOUT "Acerca de - Movie Player"
 
-#endif // BASE
+#include <QDebug>
 
+#endif // BASE

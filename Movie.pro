@@ -15,6 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         movieplayer.cpp
 
-HEADERS  += movieplayer.hpp
+HEADERS  += movieplayer.hpp \
+    base.hpp
 
 FORMS    += movieplayer.ui

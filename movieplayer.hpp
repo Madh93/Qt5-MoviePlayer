@@ -43,6 +43,11 @@ class MoviePlayer : public QMainWindow {
         void on_actionRenombrar_triggered();
         void on_actionEliminar_triggered();
 
+        //Reproducción
+        void on_actionReproducir_triggered();
+        void on_actionPausar_triggered();
+        void on_actionDetener_triggered();
+
     public:
 
         explicit MoviePlayer(QWidget *parent = 0);

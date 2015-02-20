@@ -248,3 +248,14 @@ void MoviePlayer::on_actionEliminar_triggered() {
     delete aviso;
     aviso = NULL;
 }
+
+
+/***************************
+ REPRODUCCIÓN
+**************************/
+
+void MoviePlayer::on_actionReproducir_triggered() { movie->start(); }
+
+void MoviePlayer::on_actionPausar_triggered() { pausar(); }
+
+void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }

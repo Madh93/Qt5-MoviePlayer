@@ -129,6 +129,9 @@
     <property name="title">
      <string>Reproducción</string>
     </property>
+    <addaction name="actionReproducir"/>
+    <addaction name="actionPausar"/>
+    <addaction name="actionDetener"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="title">
@@ -285,6 +288,21 @@
    </property>
    <property name="shortcut">
     <string>F3</string>
+   </property>
+  </action>
+  <action name="actionReproducir">
+   <property name="text">
+    <string>Reproducir</string>
+   </property>
+  </action>
+  <action name="actionPausar">
+   <property name="text">
+    <string>Pausar</string>
+   </property>
+  </action>
+  <action name="actionDetener">
+   <property name="text">
+    <string>Detener</string>
    </property>
   </action>
  </widget>

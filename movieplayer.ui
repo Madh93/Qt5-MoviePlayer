@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MoviePlayer</string>
+   <string>Movie Player</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -51,21 +51,21 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayoutInferior">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="buttonPlay">
           <property name="text">
            <string>Play</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="buttonPausa">
           <property name="text">
            <string>Pausa</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="buttonStop">
           <property name="text">
            <string>Stop</string>
           </property>

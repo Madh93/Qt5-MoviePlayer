@@ -46,7 +46,7 @@ void MoviePlayer::limpiarMovie() {
 
 void MoviePlayer::activarFuncionalidades(bool cond) {
 
-    ui->actionGuardarComo->setEnabled(cond);
+    //ui->actionGuardarComo->setEnabled(cond);
     ui->actionCerrar->setEnabled(cond);
     ui->actionAbrirCon->setEnabled(cond);
     ui->actionAbrirDirectorio->setEnabled(cond);

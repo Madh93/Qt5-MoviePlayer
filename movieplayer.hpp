@@ -4,9 +4,9 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QMovie>
 
 #include "base.hpp"
+#include "movie.hpp"
 
 namespace Ui {
     class MoviePlayer;
@@ -19,9 +19,9 @@ class MoviePlayer : public QMainWindow {
     private:
 
         Ui::MoviePlayer *ui;
-        QMovie *video;
+        Movie *movie;
 
-        void limpiarVideo();
+        void limpiarMovie();
         void activarFuncionalidades(bool cond);
 
     private slots:

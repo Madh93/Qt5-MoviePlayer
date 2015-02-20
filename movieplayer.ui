@@ -45,7 +45,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QLabel" name="labelVideo">
+       <widget class="QLabel" name="labelMovie">
         <property name="text">
          <string/>
         </property>

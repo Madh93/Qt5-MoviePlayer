@@ -1,11 +1,20 @@
 #ifndef MOVIE_HPP
 #define MOVIE_HPP
 
+#include <QMovie>
+#include <QFile>
+#include <QFileInfo>
 
-class Movie
-{
+
+class Movie : public QMovie {
+
+    private:
+
+        QFileInfo *info;
+
     public:
-        Movie();
+
+        Movie(QObject* parent = 0);
         ~Movie();
 };
 

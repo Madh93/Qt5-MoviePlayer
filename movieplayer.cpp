@@ -5,14 +5,14 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     ui->setupUi(this);
 
-    video = new QMovie;
+    movie = new Movie;
 
     //Señales y slots de los botones
     connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));
     connect(ui->buttonCerrar, SIGNAL(clicked()), this, SLOT(on_actionCerrar_triggered()));
-    connect(ui->buttonPlay, SIGNAL(clicked()), video, SLOT(start()));
+    connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
     connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
-    connect(ui->buttonStop, SIGNAL(clicked()), video, SLOT(stop()));
+    connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
 }
 
 
@@ -20,9 +20,9 @@ MoviePlayer::~MoviePlayer() {
 
     delete ui;
 
-    if (video) {
-        delete video;
-        video = NULL;
+    if (movie) {
+        delete movie;
+        movie = NULL;
     }
 }
 
@@ -31,11 +31,11 @@ MoviePlayer::~MoviePlayer() {
  MÉTODOS PRIVADOS
 **************************/
 
-void MoviePlayer::limpiarVideo() {
+void MoviePlayer::limpiarMovie() {
 /*
-    if (video) {
-        delete video;
-        video = new QMovie;
+    if (movie) {
+        delete movie;
+        movie = new Movie;
     }
 */
     this->setWindowTitle(WINDOW_TITLE);
@@ -65,7 +65,7 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
 
 void MoviePlayer::pausar() {
 
-    video->setPaused(video->state() == QMovie::Running);
+    movie->setPaused(movie->state() == QMovie::Running);
 }
 
 
@@ -87,19 +87,19 @@ void MoviePlayer::on_actionAbrir_triggered() {
             return;
         }
 
-        //Borrar video anterior
-        limpiarVideo();
+        //Borrar movie anterior
+        limpiarMovie();
 
-        //Cargar video
-        video->setFileName(ruta);
-        ui->labelVideo->setMovie(video);
+        //Cargar movie
+        movie->setFileName(ruta);
+        ui->labelMovie->setMovie(movie);
 
-        if (!video->isValid()) {
+        if (!movie->isValid()) {
             QMessageBox::critical(this, WINDOW_CRITICAL, "El formato es inválido");
             return;
         }
 
-        //video->start();
+        //movie->start();
 
         //Ajustes
         //this->setWindowTitle(imagen->name() + " - Visor de Imágenes");
@@ -117,7 +117,7 @@ void MoviePlayer::on_actionGuardarComo_triggered() { }
 
 void MoviePlayer::on_actionCerrar_triggered() {
 
-    limpiarVideo();
+    limpiarMovie();
 }
 
 

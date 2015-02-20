@@ -1,12 +1,10 @@
 #include "movie.hpp"
 
-Movie::Movie()
-{
+Movie::Movie(QObject *parent) : QMovie(parent) {
 
 }
 
-Movie::~Movie()
-{
+Movie::~Movie() {
 
 }
 

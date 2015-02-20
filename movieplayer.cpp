@@ -286,11 +286,12 @@ void MoviePlayer::on_actionPantallaCompleta_toggled(bool cond) {
 
 void MoviePlayer::on_actionAyuda_triggered() {
 
+    QMessageBox::warning(this, WINDOW_WARNING, "La documentación no está disponible actualmente.");
 }
 
 void MoviePlayer::on_actionAcercaDe_triggered() {
 
-   QMessageBox::about(this, tr(WINDOW_ABOUT), tr("\t       Movie Player"
+   QMessageBox::about(this, WINDOW_ABOUT, tr("\t       Movie Player"
                                                  "\n\n             Sistemas Operativos Avanzados"
                                                  "\n          Práctica 2. Estado del visor de MJPEG"
                                                  "\n\nElaborado por: Miguel Ángel Delgado Hernández"));

@@ -102,7 +102,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
         //movie->start();
 
         //Ajustes
-        this->setWindowTitle(movie->name() + " - Movie Player");
+        this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         activarFuncionalidades(true);
     }
 
@@ -122,13 +122,12 @@ void MoviePlayer::on_actionGuardarComo_triggered() {
 
         QFile file(rutaNueva);
         if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::critical(this, tr(WINDOW_CRITICAL), "No se puede guardar el archivo.");
+            QMessageBox::critical(this, WINDOW_CRITICAL, "No se puede guardar el archivo.");
             return;
         }
 
         //Guardar movie en la nueva ruta
         //imagen->save(rutaNueva);
-
     }
 }
 
@@ -179,12 +178,14 @@ void MoviePlayer::on_actionAbrirDirectorio_triggered() {
     proceso->start("xdg-open", QStringList() << movie->directory());
 }
 
+
 void MoviePlayer::on_actionAbrirTerminal_triggered() {
 
     QProcess *proceso = new QProcess(this);
     proceso->setWorkingDirectory(movie->directory());
     proceso->start("x-terminal-emulator", QStringList() << movie->directory());
 }
+
 
 void MoviePlayer::on_actionRenombrar_triggered() {
 
@@ -203,24 +204,16 @@ void MoviePlayer::on_actionRenombrar_triggered() {
         if (!QFile::exists(nuevaRuta)) {
 
             QFile::rename(movie->path(),nuevaRuta);
-            //imagen->load(nuevaRuta);
             movie->setFileName(nuevaRuta);
-            this->setWindowTitle(movie->name() + " - Visor de Imágenes");
+            this->setWindowTitle(movie->name() +  WINDOW_TITLE_OPENED);
         }
 
         else {
 
-            QMessageBox yaExiste;
-            yaExiste.setWindowTitle(WINDOW_WARNING);
-            yaExiste.setText("Ya existe un archivo con el mismo nombre.");
-            yaExiste.setInformativeText("¿Desea sobreescribir el archivo?");
-            yaExiste.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-            yaExiste.setButtonText(QMessageBox::Save, "Renombrar");
-            yaExiste.setButtonText(QMessageBox::Cancel, "Cancelar");
-            yaExiste.setDefaultButton(QMessageBox::Cancel);
+            AvisoExistente *aviso = new AvisoExistente;
 
             //Si se desea sobreescribir un archivo con el mismo nombre
-            if (yaExiste.exec() == QMessageBox::Save) {
+            if (aviso->exec() == QMessageBox::Save) {
 
                 QFile fileNuevo(nuevaRuta);
                 if (!fileNuevo.open(QIODevice::WriteOnly)) {
@@ -230,29 +223,28 @@ void MoviePlayer::on_actionRenombrar_triggered() {
 
                 QFile::remove(nuevaRuta);
                 QFile::rename(movie->path(),nuevaRuta);
-                //imagen->load(nuevaRuta);
                 movie->setFileName(nuevaRuta);
-                this->setWindowTitle(movie->name() + " - Visor de Imágenes");
+                this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
             }
+
+            delete aviso;
+            aviso = NULL;
         }
     }
 }
 
+
 void MoviePlayer::on_actionEliminar_triggered() {
 
-    QMessageBox avisoEliminar;
-    avisoEliminar.setWindowTitle(WINDOW_WARNING);
-    avisoEliminar.setText("Está a punto de eliminar el archivo del disco.");
-    avisoEliminar.setInformativeText("¿Desea eliminar el archivo?");
-    avisoEliminar.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-    avisoEliminar.setButtonText(QMessageBox::Save, "Eliminar");
-    avisoEliminar.setButtonText(QMessageBox::Cancel, "Cancelar");
-    avisoEliminar.setDefaultButton(QMessageBox::Cancel);
+    AvisoEliminar *aviso = new AvisoEliminar;
 
     //Eliminar del disco si se da el visto bueno
-    if (avisoEliminar.exec() == QMessageBox::Save) {
+    if (aviso->exec() == QMessageBox::Save) {
 
         QFile::remove(movie->path());
         limpiarMovie();
     }
+
+    delete aviso;
+    aviso = NULL;
 }

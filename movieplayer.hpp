@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QInputDialog>
 #include <QProcess>
 

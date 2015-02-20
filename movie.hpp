@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDebug>
-#include <QString>
 
 
 class Movie : public QMovie {

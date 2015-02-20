@@ -74,7 +74,6 @@ void MoviePlayer::pausar() {
  ARCHIVO
 **************************/
 
-
 void MoviePlayer::on_actionAbrir_triggered() {
 
     QString ruta = QFileDialog::getOpenFileName(this, "Abrir archivo", QString(),
@@ -103,7 +102,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
         //movie->start();
 
         //Ajustes
-        //this->setWindowTitle(imagen->name() + " - Visor de Imágenes");
+        this->setWindowTitle(movie->name() + " - Movie Player");
         activarFuncionalidades(true);
     }
 
@@ -113,7 +112,25 @@ void MoviePlayer::on_actionAbrir_triggered() {
 void MoviePlayer::on_actionAbrirRecientes_triggered() { }
 
 
-void MoviePlayer::on_actionGuardarComo_triggered() { }
+void MoviePlayer::on_actionGuardarComo_triggered() {
+
+    //Seleccionar ruta nueva
+    QString rutaNueva = QFileDialog::getSaveFileName(this, "Guardar archivo", QString(),
+            "Todos los archivos (*);;Imagen GIF (*.gif);;Imagen MNG (*.mng);;Vídeo MJPEG (*.mjpeg);;");
+
+    if (!rutaNueva.isEmpty()) {
+
+        QFile file(rutaNueva);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::critical(this, tr(WINDOW_CRITICAL), "No se puede guardar el archivo.");
+            return;
+        }
+
+        //Guardar movie en la nueva ruta
+        //imagen->save(rutaNueva);
+
+    }
+}
 
 
 void MoviePlayer::on_actionCerrar_triggered() {
@@ -125,4 +142,117 @@ void MoviePlayer::on_actionCerrar_triggered() {
 void MoviePlayer::on_actionSalir_triggered() {
 
     qApp->quit();
+}
+
+
+/***************************
+ EDITAR
+**************************/
+
+void MoviePlayer::on_actionAbrirCon_triggered() {
+
+    QInputDialog inputAbrir;
+    QString aplicacion, rutaAplicacion;
+    bool okButton;
+
+    aplicacion = inputAbrir.getText(NULL ,"Abrir archivo con...","Introduzca el nombre de la aplicación:",
+                                          QLineEdit::Normal,"Ej: gimp", &okButton);
+
+    rutaAplicacion = "/usr/bin/" + aplicacion;
+
+    //Comprobar si existe la aplicación y ejecutar
+    if (okButton && !aplicacion.isEmpty()){
+
+        if (QFile::exists(rutaAplicacion) || QFile::exists(aplicacion)) {
+            QProcess *proceso = new QProcess(this);
+            proceso->start(aplicacion, QStringList() << movie->path());
+        }
+        else
+            QMessageBox::warning(this, WINDOW_WARNING, "No se encuentra la aplicación.");
+    }
+}
+
+
+void MoviePlayer::on_actionAbrirDirectorio_triggered() {
+
+    QProcess *proceso = new QProcess(this);
+    proceso->start("xdg-open", QStringList() << movie->directory());
+}
+
+void MoviePlayer::on_actionAbrirTerminal_triggered() {
+
+    QProcess *proceso = new QProcess(this);
+    proceso->setWorkingDirectory(movie->directory());
+    proceso->start("x-terminal-emulator", QStringList() << movie->directory());
+}
+
+void MoviePlayer::on_actionRenombrar_triggered() {
+
+    QInputDialog inputRenombrar;
+    QString nuevoNombre, nuevaRuta;
+    bool okButton;
+
+    nuevoNombre = inputRenombrar.getText(NULL ,"Renombrar imagen","Introduzca un nuevo nombre:",
+                                          QLineEdit::Normal,movie->baseName(), &okButton);
+
+    if (okButton && !nuevoNombre.isEmpty()){
+
+        nuevaRuta = movie->directory() + nuevoNombre + movie->extension();
+
+        //Si no existe un archivo con el mismo nombre sobreescribir
+        if (!QFile::exists(nuevaRuta)) {
+
+            QFile::rename(movie->path(),nuevaRuta);
+            //imagen->load(nuevaRuta);
+            movie->setFileName(nuevaRuta);
+            this->setWindowTitle(movie->name() + " - Visor de Imágenes");
+        }
+
+        else {
+
+            QMessageBox yaExiste;
+            yaExiste.setWindowTitle(WINDOW_WARNING);
+            yaExiste.setText("Ya existe un archivo con el mismo nombre.");
+            yaExiste.setInformativeText("¿Desea sobreescribir el archivo?");
+            yaExiste.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+            yaExiste.setButtonText(QMessageBox::Save, "Renombrar");
+            yaExiste.setButtonText(QMessageBox::Cancel, "Cancelar");
+            yaExiste.setDefaultButton(QMessageBox::Cancel);
+
+            //Si se desea sobreescribir un archivo con el mismo nombre
+            if (yaExiste.exec() == QMessageBox::Save) {
+
+                QFile fileNuevo(nuevaRuta);
+                if (!fileNuevo.open(QIODevice::WriteOnly)) {
+                    QMessageBox::critical(this, WINDOW_CRITICAL, "No se puede renombrar el archivo.");
+                    return;
+                }
+
+                QFile::remove(nuevaRuta);
+                QFile::rename(movie->path(),nuevaRuta);
+                //imagen->load(nuevaRuta);
+                movie->setFileName(nuevaRuta);
+                this->setWindowTitle(movie->name() + " - Visor de Imágenes");
+            }
+        }
+    }
+}
+
+void MoviePlayer::on_actionEliminar_triggered() {
+
+    QMessageBox avisoEliminar;
+    avisoEliminar.setWindowTitle(WINDOW_WARNING);
+    avisoEliminar.setText("Está a punto de eliminar el archivo del disco.");
+    avisoEliminar.setInformativeText("¿Desea eliminar el archivo?");
+    avisoEliminar.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    avisoEliminar.setButtonText(QMessageBox::Save, "Eliminar");
+    avisoEliminar.setButtonText(QMessageBox::Cancel, "Cancelar");
+    avisoEliminar.setDefaultButton(QMessageBox::Cancel);
+
+    //Eliminar del disco si se da el visto bueno
+    if (avisoEliminar.exec() == QMessageBox::Save) {
+
+        QFile::remove(movie->path());
+        limpiarMovie();
+    }
 }

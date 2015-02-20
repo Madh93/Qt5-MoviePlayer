@@ -34,6 +34,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonCerrar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Cerrar</string>
           </property>
@@ -44,7 +47,10 @@
       <item>
        <widget class="QLabel" name="labelVideo">
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -52,6 +58,9 @@
        <layout class="QHBoxLayout" name="horizontalLayoutInferior">
         <item>
          <widget class="QPushButton" name="buttonPlay">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Play</string>
           </property>
@@ -59,6 +68,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonPausa">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Pausa</string>
           </property>
@@ -66,6 +78,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="buttonStop">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Stop</string>
           </property>
@@ -154,65 +169,122 @@
    <property name="text">
     <string>Abrir</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionAbrirRecientes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Abrir recientes</string>
    </property>
   </action>
   <action name="actionGuardarComo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Guardar como</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionCerrar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Cerrar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="actionAbrirCon">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Abrir con...</string>
    </property>
   </action>
   <action name="actionAbrirDirectorio">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Abrir directorio</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
   <action name="actionAbrirTerminal">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Abrir terminal</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="actionRenombrar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Renombrar</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionEliminar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Eliminar</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
    </property>
   </action>
   <action name="actionAyuda">
    <property name="text">
     <string>Ayuda</string>
    </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
   </action>
   <action name="actionAcercaDe">
    <property name="text">
     <string>Acerca de</string>
    </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
   </action>
   <action name="actionAcercaDeQt">
    <property name="text">
     <string>Acerca de Qt</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
  </widget>

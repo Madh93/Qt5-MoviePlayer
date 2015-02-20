@@ -259,3 +259,44 @@ void MoviePlayer::on_actionReproducir_triggered() { movie->start(); }
 void MoviePlayer::on_actionPausar_triggered() { pausar(); }
 
 void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
+
+
+/***************************
+ HERRAMIENTAS
+**************************/
+
+
+
+/***************************
+ PREFERENCIAS
+**************************/
+
+void MoviePlayer::on_actionPantallaCompleta_toggled(bool cond) {
+
+    if (cond)
+        this->showFullScreen();
+    else
+        this->showMaximized();
+}
+
+
+/***************************
+ AYUDA
+**************************/
+
+void MoviePlayer::on_actionAyuda_triggered() {
+
+}
+
+void MoviePlayer::on_actionAcercaDe_triggered() {
+
+   QMessageBox::about(this, tr(WINDOW_ABOUT), tr("\t       Movie Player"
+                                                 "\n\n             Sistemas Operativos Avanzados"
+                                                 "\n          Práctica 2. Estado del visor de MJPEG"
+                                                 "\n\nElaborado por: Miguel Ángel Delgado Hernández"));
+}
+
+void MoviePlayer::on_actionAcercaDeQt_triggered() {
+
+    qApp->aboutQt();
+}

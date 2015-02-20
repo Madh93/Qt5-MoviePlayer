@@ -48,6 +48,16 @@ class MoviePlayer : public QMainWindow {
         void on_actionPausar_triggered();
         void on_actionDetener_triggered();
 
+        //Herramientas
+
+        //Preferencias
+        void on_actionPantallaCompleta_toggled(bool cond);
+
+        //Ayuda
+        void on_actionAyuda_triggered();
+        void on_actionAcercaDe_triggered();
+        void on_actionAcercaDeQt_triggered();
+
     public:
 
         explicit MoviePlayer(QWidget *parent = 0);

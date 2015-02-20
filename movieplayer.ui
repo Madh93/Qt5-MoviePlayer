@@ -138,10 +138,11 @@
      <string>Herramientas</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuOpciones">
+   <widget class="QMenu" name="menuPreferencias">
     <property name="title">
-     <string>Opciones</string>
+     <string>Preferencias</string>
     </property>
+    <addaction name="actionPantallaCompleta"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
     <property name="title">
@@ -156,7 +157,7 @@
    <addaction name="menuEditar"/>
    <addaction name="menuReproduccion"/>
    <addaction name="menuHerramientas"/>
-   <addaction name="menuOpciones"/>
+   <addaction name="menuPreferencias"/>
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -303,6 +304,14 @@
   <action name="actionDetener">
    <property name="text">
     <string>Detener</string>
+   </property>
+  </action>
+  <action name="actionPantallaCompleta">
+   <property name="text">
+    <string>Pantalla completa</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

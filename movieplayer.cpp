@@ -1,14 +1,11 @@
 #include "movieplayer.hpp"
 #include "ui_movieplayer.h"
 
-MoviePlayer::MoviePlayer(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MoviePlayer)
-{
+MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::MoviePlayer) {
     ui->setupUi(this);
 }
 
-MoviePlayer::~MoviePlayer()
-{
+
+MoviePlayer::~MoviePlayer() {
     delete ui;
 }

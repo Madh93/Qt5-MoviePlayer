@@ -4,19 +4,21 @@
 #include <QMainWindow>
 
 namespace Ui {
-class MoviePlayer;
+    class MoviePlayer;
 }
 
-class MoviePlayer : public QMainWindow
-{
-        Q_OBJECT
+class MoviePlayer : public QMainWindow {
 
-    public:
-        explicit MoviePlayer(QWidget *parent = 0);
-        ~MoviePlayer();
+    Q_OBJECT
 
     private:
+
         Ui::MoviePlayer *ui;
+
+    public:
+
+        explicit MoviePlayer(QWidget *parent = 0);
+        ~MoviePlayer();
 };
 
 #endif // MOVIEPLAYER_HPP

@@ -15,6 +15,15 @@ class MoviePlayer : public QMainWindow {
 
         Ui::MoviePlayer *ui;
 
+    private slots:
+
+        //Archivo
+        void on_actionAbrir_triggered();
+        void on_actionAbrirRecientes_triggered();
+        void on_actionGuardarComo_triggered();
+        void on_actionCerrar_triggered();
+        void on_actionSalir_triggered();
+
     public:
 
         explicit MoviePlayer(QWidget *parent = 0);

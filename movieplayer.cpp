@@ -38,6 +38,7 @@ void MoviePlayer::limpiarMovie() {
         movie = new Movie;
     }
 */
+    movie->stop();
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
 }

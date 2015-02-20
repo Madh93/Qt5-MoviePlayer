@@ -105,24 +105,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QSlider" name="slider">
-          <property name="mouseTracking">
-           <bool>false</bool>
-          </property>
-          <property name="acceptDrops">
-           <bool>true</bool>
-          </property>
+         <widget class="Slider" name="slider">
           <property name="maximum">
            <number>100</number>
           </property>
-          <property name="tracking">
-           <bool>false</bool>
+          <property name="pageStep">
+           <number>1</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
           </property>
           <property name="tickPosition">
            <enum>QSlider::TicksBelow</enum>
@@ -362,6 +353,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Slider</class>
+   <extends>QSlider</extends>
+   <header>slider.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

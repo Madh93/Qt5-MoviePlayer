@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMessageBox>
 
+
 // TÍTULOS DE VENTANA
 
 #define WINDOW_TITLE "Movie Player"

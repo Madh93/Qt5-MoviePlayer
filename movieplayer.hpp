@@ -8,6 +8,7 @@
 
 #include "base.hpp"
 #include "movie.hpp"
+#include "slider.hpp"
 
 namespace Ui {
     class MoviePlayer;

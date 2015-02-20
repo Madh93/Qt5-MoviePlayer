@@ -1,24 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MoviePlayer</class>
- <widget class="QMainWindow" name="MoviePlayer" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MoviePlayer">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>652</width>
+    <height>448</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MoviePlayer</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>652</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionAbrir"/>
+    <addaction name="actionAbrirRecientes"/>
+    <addaction name="separator"/>
+    <addaction name="actionGuardarComo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCerrar"/>
+    <addaction name="actionSalir"/>
+   </widget>
+   <widget class="QMenu" name="menuEditar">
+    <property name="title">
+     <string>Editar</string>
+    </property>
+    <addaction name="actionAbrirCon"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbrirDirectorio"/>
+    <addaction name="actionAbrirTerminal"/>
+    <addaction name="separator"/>
+    <addaction name="actionRenombrar"/>
+    <addaction name="actionEliminar"/>
+   </widget>
+   <widget class="QMenu" name="menuReproduccion">
+    <property name="title">
+     <string>Reproducción</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHerramientas">
+    <property name="title">
+     <string>Herramientas</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuOpciones">
+    <property name="title">
+     <string>Opciones</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAyuda">
+    <property name="title">
+     <string>Ayuda</string>
+    </property>
+    <addaction name="actionAyuda"/>
+    <addaction name="separator"/>
+    <addaction name="actionAcercaDe"/>
+    <addaction name="actionAcercaDeQt"/>
+   </widget>
+   <addaction name="menuArchivo"/>
+   <addaction name="menuEditar"/>
+   <addaction name="menuReproduccion"/>
+   <addaction name="menuHerramientas"/>
+   <addaction name="menuOpciones"/>
+   <addaction name="menuAyuda"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir</string>
+   </property>
+  </action>
+  <action name="actionAbrirRecientes">
+   <property name="text">
+    <string>Abrir recientes</string>
+   </property>
+  </action>
+  <action name="actionGuardarComo">
+   <property name="text">
+    <string>Guardar como</string>
+   </property>
+  </action>
+  <action name="actionCerrar">
+   <property name="text">
+    <string>Cerrar</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionAbrirCon">
+   <property name="text">
+    <string>Abrir con...</string>
+   </property>
+  </action>
+  <action name="actionAbrirDirectorio">
+   <property name="text">
+    <string>Abrir directorio</string>
+   </property>
+  </action>
+  <action name="actionAbrirTerminal">
+   <property name="text">
+    <string>Abrir terminal</string>
+   </property>
+  </action>
+  <action name="actionRenombrar">
+   <property name="text">
+    <string>Renombrar</string>
+   </property>
+  </action>
+  <action name="actionEliminar">
+   <property name="text">
+    <string>Eliminar</string>
+   </property>
+  </action>
+  <action name="actionAyuda">
+   <property name="text">
+    <string>Ayuda</string>
+   </property>
+  </action>
+  <action name="actionAcercaDe">
+   <property name="text">
+    <string>Acerca de</string>
+   </property>
+  </action>
+  <action name="actionAcercaDeQt">
+   <property name="text">
+    <string>Acerca de Qt</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>

@@ -21,6 +21,9 @@ class MoviePlayer : public QMainWindow {
         Ui::MoviePlayer *ui;
         QMovie *video;
 
+        void limpiarVideo();
+        void activarFuncionalidades(bool cond);
+
     private slots:
 
         //Archivo

@@ -20,6 +20,34 @@ MoviePlayer::~MoviePlayer() {
 }
 
 
+void MoviePlayer::limpiarVideo() {
+
+    if (video) {
+        delete video;
+        video = NULL;
+    }
+
+    this->setWindowTitle(WINDOW_TITLE);
+    activarFuncionalidades(false);
+}
+
+
+void MoviePlayer::activarFuncionalidades(bool cond) {
+
+    ui->actionGuardarComo->setEnabled(cond);
+    ui->actionCerrar->setEnabled(cond);
+    ui->actionAbrirCon->setEnabled(cond);
+    ui->actionAbrirDirectorio->setEnabled(cond);
+    ui->actionAbrirTerminal->setEnabled(cond);
+    ui->actionRenombrar->setEnabled(cond);
+    ui->actionEliminar->setEnabled(cond);
+    ui->buttonCerrar->setEnabled(cond);
+    ui->buttonPlay->setEnabled(cond);
+    ui->buttonPausa->setEnabled(cond);
+    ui->buttonStop->setEnabled(cond);
+}
+
+
 // ARCHIVO
 
 void MoviePlayer::on_actionAbrir_triggered() {
@@ -37,7 +65,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
         }
 
         //Borrar video anterior
-        //limpiarVideo();
+        limpiarVideo();
 
         //Cargar video
         video = new QMovie(ruta);
@@ -46,7 +74,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Ajustes
         //this->setWindowTitle(imagen->name() + " - Visor de Imágenes");
-        //activarFuncionalidades();
+        activarFuncionalidades(true);
     }
 
 }

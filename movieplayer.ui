@@ -126,6 +126,44 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="buttonRetroceder">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Retroceder 1seg</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonAvanzar">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Avanzar 1seg</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="Slider" name="slider">
           <property name="enabled">
            <bool>false</bool>
@@ -205,6 +243,9 @@
     <addaction name="actionReproducir"/>
     <addaction name="actionPausar"/>
     <addaction name="actionDetener"/>
+    <addaction name="separator"/>
+    <addaction name="actionAvanzar"/>
+    <addaction name="actionRetroceder"/>
     <addaction name="separator"/>
     <addaction name="actionSiguienteFotograma"/>
     <addaction name="actionAnteriorFotograma"/>
@@ -512,6 +553,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="actionAvanzar">
+   <property name="text">
+    <string>Avanzar 1s</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+9</string>
+   </property>
+  </action>
+  <action name="actionRetroceder">
+   <property name="text">
+    <string>Retroceder 1s</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+8</string>
    </property>
   </action>
  </widget>

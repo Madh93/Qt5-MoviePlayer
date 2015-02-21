@@ -17,6 +17,8 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     ui->buttonPlay->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     ui->buttonPausa->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     ui->buttonStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+    ui->buttonRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
+    ui->buttonAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
 
     //Señales y slots de los botones
     connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));
@@ -24,6 +26,8 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
     connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
     connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
+    connect(ui->buttonRetroceder, SIGNAL(clicked()), this, SLOT(on_actionRetroceder_triggered()));
+    connect(ui->buttonAvanzar, SIGNAL(clicked()), this, SLOT(on_actionAvanzar_triggered()));
 
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
     connect(ui->slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
@@ -81,6 +85,8 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionReproducir->setEnabled(cond);
     ui->actionPausar->setEnabled(cond);
     ui->actionDetener->setEnabled(cond);
+    ui->actionAvanzar->setEnabled(cond);
+    ui->actionRetroceder->setEnabled(cond);
     ui->actionSiguienteFotograma->setEnabled(cond);
     ui->actionAnteriorFotograma->setEnabled(cond);
     ui->menuVelocidad->setEnabled(cond);
@@ -90,6 +96,8 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->buttonPlay->setEnabled(cond);
     ui->buttonPausa->setEnabled(cond);
     ui->buttonStop->setEnabled(cond);
+    ui->buttonRetroceder->setEnabled(cond);
+    ui->buttonAvanzar->setEnabled(cond);
     ui->slider->setEnabled(cond);
 }
 
@@ -118,6 +126,8 @@ void MoviePlayer::updateFrameSlider() {
             ui->slider->setMaximum(movie->frameCount() - 1);
         ui->slider->setValue(movie->currentFrameNumber());
     }
+    //tiempo total = movie->framecount * movie->nextFrameDelay() / 1000;
+    //qDebug() << movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
 }
 
 
@@ -323,6 +333,16 @@ void MoviePlayer::on_actionPausar_triggered() { pausar(); }
 
 void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
 
+void MoviePlayer::on_actionAvanzar_triggered() {
+
+    movie->jumpToFrame(movie->currentFrameNumber() + (1000/movie->nextFrameDelay()));
+}
+
+void MoviePlayer::on_actionRetroceder_triggered() {
+
+    movie->jumpToFrame(movie->currentFrameNumber() - (1000/movie->nextFrameDelay()));
+}
+
 void MoviePlayer::on_actionSiguienteFotograma_triggered() {
 
     movie->jumpToFrame(movie->currentFrameNumber()+1);
@@ -342,6 +362,7 @@ void MoviePlayer::on_actionReducir_triggered() { speed-=10; updateVelocidad(); }
 void MoviePlayer::on_actionDoblar_triggered() { speed*=2; updateVelocidad(); }
 
 void MoviePlayer::on_actionMitad_triggered() { speed/=2; updateVelocidad(); }
+
 
 /***************************
  HERRAMIENTAS

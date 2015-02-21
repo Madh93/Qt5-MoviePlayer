@@ -9,6 +9,11 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
+    ui->buttonAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->buttonCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+    ui->buttonPlay->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+    ui->buttonPausa->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+    ui->buttonStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
 
     //Señales y slots de los botones
     connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));

@@ -5,10 +5,12 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     ui->setupUi(this);
 
+    speed = 100;
     movie = new Movie;
-
     tamano = new QLabel;
+    velocidad = new QLabel;
     ui->statusBar->addPermanentWidget(tamano);
+    ui->statusBar->addWidget(velocidad);
 
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
@@ -44,6 +46,13 @@ MoviePlayer::~MoviePlayer() {
         delete tamano;
         tamano = NULL;
     }
+
+    if (velocidad) {
+        delete velocidad;
+        velocidad = NULL;
+    }
+
+    speed = 0;
 }
 
 
@@ -59,6 +68,13 @@ void MoviePlayer::limpiarMovie() {
         ui->statusBar->addPermanentWidget(tamano);
     }
 
+    if (velocidad) {
+        delete velocidad;
+        velocidad = new QLabel;
+        ui->statusBar->addWidget(velocidad);
+    }
+
+    speed = 100;
     movie->stop();
     ui->slider->setValue(0);
     this->setWindowTitle(WINDOW_TITLE);
@@ -75,6 +91,10 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionAbrirTerminal->setEnabled(cond);
     ui->actionRenombrar->setEnabled(cond);
     ui->actionEliminar->setEnabled(cond);
+    ui->actionReproducir->setEnabled(cond);
+    ui->actionPausar->setEnabled(cond);
+    ui->actionDetener->setEnabled(cond);
+    ui->menuVelocidad->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
     ui->buttonCerrar->setEnabled(cond);
@@ -119,6 +139,12 @@ void MoviePlayer::showFrame() {
 }
 
 
+void MoviePlayer::updateVelocidad() {
+
+    movie->setSpeed(speed);
+    velocidad->setText("Velocidad: " + QString::number(speed) + "%");
+}
+
 /***************************
  ARCHIVO
 **************************/
@@ -150,8 +176,12 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
+        updateVelocidad();
+
+        movie->jumpToFrame(0);
         tamano->setText(QString::number(movie->currentPixmap().width()) +
                         " x " + QString::number(movie->currentPixmap().height()));
+        movie->jumpToFrame(-1);
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
     }
@@ -309,6 +339,12 @@ void MoviePlayer::on_actionReproducir_triggered() { movie->start(); }
 void MoviePlayer::on_actionPausar_triggered() { pausar(); }
 
 void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
+
+void MoviePlayer::on_actionNormal_triggered() { speed=100; updateVelocidad(); }
+
+void MoviePlayer::on_actionIncrementar_triggered() { speed+=10; updateVelocidad(); }
+
+void MoviePlayer::on_actionReducir_triggered() { speed-=10; updateVelocidad(); }
 
 
 /***************************

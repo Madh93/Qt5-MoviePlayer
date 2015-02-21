@@ -22,8 +22,9 @@ class MoviePlayer : public QMainWindow {
     private:
 
         Ui::MoviePlayer *ui;
+        int speed;
         Movie *movie;
-        QLabel *tamano;
+        QLabel *tamano, *velocidad;
 
         void limpiarMovie();
         void activarFuncionalidades(bool cond);
@@ -34,6 +35,7 @@ class MoviePlayer : public QMainWindow {
         void updateFrameSlider();
         void setFrameSlider(int frame);
         void showFrame();
+        void updateVelocidad();
 
         //Archivo
         void on_actionAbrir_triggered();
@@ -53,6 +55,9 @@ class MoviePlayer : public QMainWindow {
         void on_actionReproducir_triggered();
         void on_actionPausar_triggered();
         void on_actionDetener_triggered();
+        void on_actionNormal_triggered();
+        void on_actionIncrementar_triggered();
+        void on_actionReducir_triggered();
 
         //Herramientas
         void on_actionAjustarVentana_toggled(bool cond);

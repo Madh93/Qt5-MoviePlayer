@@ -187,9 +187,21 @@
     <property name="title">
      <string>Reproducción</string>
     </property>
+    <widget class="QMenu" name="menuVelocidad">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Velocidad</string>
+     </property>
+     <addaction name="actionNormal"/>
+     <addaction name="actionIncrementar"/>
+     <addaction name="actionReducir"/>
+    </widget>
     <addaction name="actionReproducir"/>
     <addaction name="actionPausar"/>
     <addaction name="actionDetener"/>
+    <addaction name="menuVelocidad"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="title">
@@ -418,6 +430,33 @@
    </property>
    <property name="whatsThis">
     <string/>
+   </property>
+  </action>
+  <action name="actionNormal">
+   <property name="text">
+    <string>Normal</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionIncrementar">
+   <property name="text">
+    <string>Incrementar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionReducir">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Reducir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
    </property>
   </action>
  </widget>

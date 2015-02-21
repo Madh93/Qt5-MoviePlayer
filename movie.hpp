@@ -4,7 +4,6 @@
 #include <QMovie>
 #include <QFile>
 #include <QFileInfo>
-#include <QDebug>
 
 
 class Movie : public QMovie {
@@ -15,7 +14,7 @@ class Movie : public QMovie {
 
     public:
 
-        Movie(QObject* parent = 0);
+        Movie(QObject *parent = 0);
         ~Movie();
 
         void setFileName(const QString &ruta);

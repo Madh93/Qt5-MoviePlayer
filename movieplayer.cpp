@@ -83,7 +83,6 @@ void MoviePlayer::limpiarMovie() {
 
 void MoviePlayer::activarFuncionalidades(bool cond) {
 
-    //ui->actionGuardarComo->setEnabled(cond);
     ui->actionCerrar->setEnabled(cond);
     ui->actionAbrirCon->setEnabled(cond);
     ui->actionAbrirDirectorio->setEnabled(cond);
@@ -116,16 +115,10 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
  SLOTS
 **************************/
 
-void MoviePlayer::pausar() {
-
-    movie->setPaused(movie->state() == QMovie::Running);
-}
+void MoviePlayer::pausar() { movie->setPaused(movie->state() == QMovie::Running); }
 
 
-void MoviePlayer::setFrameSlider(int frame) {
-
-    movie->jumpToFrame(frame);
-}
+void MoviePlayer::setFrameSlider(int frame) { movie->jumpToFrame(frame); }
 
 
 void MoviePlayer::updateFrameSlider() {
@@ -157,6 +150,7 @@ void MoviePlayer::updateVelocidad() {
     velocidad->setText("Velocidad: " + QString::number(speed) + "%");
 }
 
+
 /***************************
  ARCHIVO
 **************************/
@@ -164,7 +158,7 @@ void MoviePlayer::updateVelocidad() {
 void MoviePlayer::on_actionAbrir_triggered() {
 
     QString ruta = QFileDialog::getOpenFileName(this, "Abrir archivo", QString(),
-                                                "Todos los archivos (*);;Imagen GIF (*.gif);;Imagen MNG (*.mng);;Vídeo MJPEG (*.mjpeg);;");
+                   "Todos los archivos (*);;Imagen GIF (*.gif);;Imagen MNG (*.mng);;Vídeo MJPEG (*.mjpeg);;");
 
     if (!ruta.isEmpty()) {
 
@@ -201,36 +195,10 @@ void MoviePlayer::on_actionAbrir_triggered() {
 void MoviePlayer::on_actionAbrirRecientes_triggered() { }
 
 
-void MoviePlayer::on_actionGuardarComo_triggered() {
-
-    //Seleccionar ruta nueva
-    QString rutaNueva = QFileDialog::getSaveFileName(this, "Guardar archivo", QString(),
-            "Todos los archivos (*);;Imagen GIF (*.gif);;Imagen MNG (*.mng);;Vídeo MJPEG (*.mjpeg);;");
-
-    if (!rutaNueva.isEmpty()) {
-
-        QFile file(rutaNueva);
-        if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::critical(this, WINDOW_CRITICAL, "No se puede guardar el archivo.");
-            return;
-        }
-
-        //Guardar movie en la nueva ruta
-        //imagen->save(rutaNueva);
-    }
-}
+void MoviePlayer::on_actionCerrar_triggered() { limpiarMovie(); }
 
 
-void MoviePlayer::on_actionCerrar_triggered() {
-
-    limpiarMovie();
-}
-
-
-void MoviePlayer::on_actionSalir_triggered() {
-
-    qApp->quit();
-}
+void MoviePlayer::on_actionSalir_triggered() { qApp->quit(); }
 
 
 /***************************
@@ -359,10 +327,7 @@ void MoviePlayer::on_actionRetroceder_triggered() {
     movie->jumpToFrame(movie->currentFrameNumber() - (1000/movie->nextFrameDelay()));
 }
 
-void MoviePlayer::on_actionSiguienteFotograma_triggered() {
-
-    movie->jumpToFrame(movie->currentFrameNumber()+1);
-}
+void MoviePlayer::on_actionSiguienteFotograma_triggered() { movie->jumpToNextFrame(); }
 
 void MoviePlayer::on_actionAnteriorFotograma_triggered() {
 
@@ -459,7 +424,4 @@ void MoviePlayer::on_actionAcercaDe_triggered() {
                                                  "\n\nElaborado por: Miguel Ángel Delgado Hernández"));
 }
 
-void MoviePlayer::on_actionAcercaDeQt_triggered() {
-
-    qApp->aboutQt();
-}
+void MoviePlayer::on_actionAcercaDeQt_triggered() { qApp->aboutQt(); }

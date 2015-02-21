@@ -22,7 +22,7 @@ class AvisoEliminar : public QMessageBox {
 
     public:
 
-        AvisoEliminar(QWidget * parent = 0) : QMessageBox(parent) {
+        AvisoEliminar(QWidget *parent = 0) : QMessageBox(parent) {
 
             this->setWindowTitle(WINDOW_WARNING);
             this->setText("Está a punto de eliminar el archivo del disco.");
@@ -41,7 +41,7 @@ class AvisoExistente : public QMessageBox {
 
     public:
 
-        AvisoExistente(QWidget * parent = 0) : QMessageBox(parent) {
+        AvisoExistente(QWidget *parent = 0) : QMessageBox(parent) {
 
             this->setWindowTitle(WINDOW_WARNING);
             this->setText("Ya existe un archivo con el mismo nombre.");

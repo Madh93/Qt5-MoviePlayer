@@ -42,7 +42,6 @@ class MoviePlayer : public QMainWindow {
         //Archivo
         void on_actionAbrir_triggered();
         void on_actionAbrirRecientes_triggered();   //PENDIENTE
-        void on_actionGuardarComo_triggered();      //CORREGIR
         void on_actionCerrar_triggered();
         void on_actionSalir_triggered();
 

@@ -248,8 +248,6 @@
     <addaction name="actionAbrir"/>
     <addaction name="actionAbrirRecientes"/>
     <addaction name="separator"/>
-    <addaction name="actionGuardarComo"/>
-    <addaction name="separator"/>
     <addaction name="actionCerrar"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -347,7 +345,7 @@
   </action>
   <action name="actionGuardarComo">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Guardar como</string>

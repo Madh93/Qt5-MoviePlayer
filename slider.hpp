@@ -8,12 +8,12 @@ class Slider : public QSlider {
 
     public:
 
-        Slider(QWidget * parent = 0);
+        Slider(QWidget *parent = 0);
         ~Slider();
 
     protected:
 
-        virtual void mousePressEvent(QMouseEvent * e);
+        virtual void mousePressEvent(QMouseEvent *e);
 };
 
 #endif // SLIDER_HPP

@@ -19,6 +19,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
     connect(ui->slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
+    connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame(const QRect&)));
 }
 
 
@@ -93,6 +94,13 @@ void MoviePlayer::updateFrameSlider() {
 }
 
 
+void MoviePlayer::showFrame(const QRect& rect) {
+
+    QPixmap pixmap = movie->currentPixmap();
+    ui->labelMovie->setPixmap(pixmap);
+}
+
+
 /***************************
  ARCHIVO
 **************************/
@@ -115,7 +123,6 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Cargar movie
         movie->setFileName(ruta);
-        ui->labelMovie->setMovie(movie);
 
         if (!movie->isValid()) {
             QMessageBox::critical(this, WINDOW_CRITICAL, "El formato es inválido");

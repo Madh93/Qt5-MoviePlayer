@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QProcess>
+#include <QPixmap>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -31,6 +32,7 @@ class MoviePlayer : public QMainWindow {
         void pausar();
         void updateFrameSlider();
         void setFrameSlider(int frame);
+        void showFrame(const QRect& rect);
 
         //Archivo
         void on_actionAbrir_triggered();

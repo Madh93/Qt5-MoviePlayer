@@ -12,6 +12,10 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     ui->statusBar->addWidget(velocidad);
     ui->statusBar->addPermanentWidget(tiempo);
 
+    //Preferencias
+    if (preferencias.value("auto-reproduccion").toBool())
+        ui->actionAutoReproducir->setChecked(true);
+
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
     ui->buttonAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
@@ -181,13 +185,16 @@ void MoviePlayer::on_actionAbrir_triggered() {
             return;
         }
 
+        //Auto-reproducir
+        if (ui->actionAutoReproducir->isChecked())
+            movie->start();
+
         //Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
     }
-
 }
 
 
@@ -416,10 +423,15 @@ void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 }
 
 
-
 /***************************
  PREFERENCIAS
 **************************/
+
+void MoviePlayer::on_actionAutoReproducir_toggled(bool cond) {
+
+    preferencias.setValue("auto-reproduccion", cond);
+}
+
 
 void MoviePlayer::on_actionPantallaCompleta_toggled(bool cond) {
 

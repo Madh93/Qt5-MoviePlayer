@@ -6,6 +6,7 @@
 #include <QInputDialog>
 #include <QProcess>
 #include <QPixmap>
+#include <QSettings>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -25,6 +26,7 @@ class MoviePlayer : public QMainWindow {
         int speed;
         Movie *movie;
         QLabel *velocidad, *tiempo;
+        QSettings preferencias;
 
         void limpiarMovie();
         void activarFuncionalidades(bool cond);
@@ -71,6 +73,7 @@ class MoviePlayer : public QMainWindow {
         void on_actionActivarCache_toggled(bool cond);
 
         //Preferencias
+        void on_actionAutoReproducir_toggled(bool cond);
         void on_actionPantallaCompleta_toggled(bool cond);
 
         //Ayuda

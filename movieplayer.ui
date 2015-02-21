@@ -309,6 +309,7 @@
     <property name="title">
      <string>Preferencias</string>
     </property>
+    <addaction name="actionAutoReproducir"/>
     <addaction name="actionPantallaCompleta"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
@@ -615,6 +616,14 @@
    </property>
    <property name="text">
     <string>Captura</string>
+   </property>
+  </action>
+  <action name="actionAutoReproducir">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto-reproducir</string>
    </property>
   </action>
  </widget>

@@ -44,13 +44,9 @@ MoviePlayer::~MoviePlayer() {
 **************************/
 
 void MoviePlayer::limpiarMovie() {
-/*
-    if (movie) {
-        delete movie;
-        movie = new Movie;
-    }
-*/
+
     movie->stop();
+    ui->slider->setValue(0);
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
 }
@@ -71,6 +67,7 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->buttonPlay->setEnabled(cond);
     ui->buttonPausa->setEnabled(cond);
     ui->buttonStop->setEnabled(cond);
+    ui->slider->setEnabled(cond);
 }
 
 

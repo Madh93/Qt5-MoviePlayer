@@ -79,8 +79,11 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Reproducir</string>
+          </property>
           <property name="text">
-           <string>Play</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -95,8 +98,11 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Pausar</string>
+          </property>
           <property name="text">
-           <string>Pausa</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -111,13 +117,19 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Detener</string>
+          </property>
           <property name="text">
-           <string>Stop</string>
+           <string/>
           </property>
          </widget>
         </item>
         <item>
          <widget class="Slider" name="slider">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="maximum">
            <number>100</number>
           </property>
@@ -343,15 +355,24 @@
    <property name="text">
     <string>Reproducir</string>
    </property>
+   <property name="shortcut">
+    <string>Return</string>
+   </property>
   </action>
   <action name="actionPausar">
    <property name="text">
     <string>Pausar</string>
    </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
   </action>
   <action name="actionDetener">
    <property name="text">
     <string>Detener</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Return</string>
    </property>
   </action>
   <action name="actionPantallaCompleta">

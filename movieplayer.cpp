@@ -16,6 +16,9 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
     connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
     connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
+
+    connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
+    connect(ui->slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
 }
 
 
@@ -70,6 +73,23 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
 void MoviePlayer::pausar() {
 
     movie->setPaused(movie->state() == QMovie::Running);
+}
+
+
+void MoviePlayer::setFrameSlider(int frame) {
+
+    movie->jumpToFrame(frame);
+}
+
+
+void MoviePlayer::updateFrameSlider() {
+
+    //Comprobar que no es una imagen estática
+    if (movie->currentFrameNumber() >= 0) {
+        if (movie->frameCount() > 0)
+            ui->slider->setMaximum(movie->frameCount() - 1);
+        ui->slider->setValue(movie->currentFrameNumber());
+    }
 }
 
 

@@ -29,6 +29,8 @@ class MoviePlayer : public QMainWindow {
     private slots:
 
         void pausar();
+        void updateFrameSlider();
+        void setFrameSlider(int frame);
 
         //Archivo
         void on_actionAbrir_triggered();

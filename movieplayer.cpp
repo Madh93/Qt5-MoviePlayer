@@ -7,6 +7,9 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     movie = new Movie;
 
+    tamano = new QLabel;
+    ui->statusBar->addPermanentWidget(tamano);
+
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
     ui->buttonAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
@@ -36,6 +39,11 @@ MoviePlayer::~MoviePlayer() {
         delete movie;
         movie = NULL;
     }
+
+    if (tamano) {
+        delete tamano;
+        tamano = NULL;
+    }
 }
 
 
@@ -44,6 +52,12 @@ MoviePlayer::~MoviePlayer() {
 **************************/
 
 void MoviePlayer::limpiarMovie() {
+
+    if (tamano) {
+        delete tamano;
+        tamano = new QLabel;
+        ui->statusBar->addPermanentWidget(tamano);
+    }
 
     movie->stop();
     ui->slider->setValue(0);
@@ -127,6 +141,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Cargar movie
         movie->setFileName(ruta);
+        movie->jumpToFrame(0);
 
         if (!movie->isValid()) {
             QMessageBox::critical(this, WINDOW_CRITICAL, "El formato es inválido");
@@ -135,6 +150,8 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
+        tamano->setText(QString::number(movie->currentPixmap().width()) +
+                        " x " + QString::number(movie->currentPixmap().height()));
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
     }

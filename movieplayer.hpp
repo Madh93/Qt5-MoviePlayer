@@ -23,6 +23,7 @@ class MoviePlayer : public QMainWindow {
 
         Ui::MoviePlayer *ui;
         Movie *movie;
+        QLabel *tamano;
 
         void limpiarMovie();
         void activarFuncionalidades(bool cond);

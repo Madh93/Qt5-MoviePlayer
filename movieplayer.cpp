@@ -192,9 +192,6 @@ void MoviePlayer::on_actionAbrir_triggered() {
 }
 
 
-void MoviePlayer::on_actionAbrirRecientes_triggered() { }
-
-
 void MoviePlayer::on_actionCerrar_triggered() { limpiarMovie(); }
 
 
@@ -319,12 +316,14 @@ void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
 
 void MoviePlayer::on_actionAvanzar_triggered() {
 
-    movie->jumpToFrame(movie->currentFrameNumber() + (1000/movie->nextFrameDelay()));
+    if (movie->frameCount() > 0)
+        movie->jumpToFrame(movie->currentFrameNumber() + (1000/movie->nextFrameDelay()));
 }
 
 void MoviePlayer::on_actionRetroceder_triggered() {
 
-    movie->jumpToFrame(movie->currentFrameNumber() - (1000/movie->nextFrameDelay()));
+    if (movie->frameCount() > 0)
+        movie->jumpToFrame(movie->currentFrameNumber() - (1000/movie->nextFrameDelay()));
 }
 
 void MoviePlayer::on_actionSiguienteFotograma_triggered() { movie->jumpToNextFrame(); }

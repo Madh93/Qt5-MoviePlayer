@@ -21,10 +21,12 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     ui->buttonStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     ui->buttonRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
     ui->buttonAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+    ui->buttonCaptura->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
 
     //Señales y slots de los botones
     connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));
     connect(ui->buttonCerrar, SIGNAL(clicked()), this, SLOT(on_actionCerrar_triggered()));
+    connect(ui->buttonCaptura, SIGNAL(clicked()), this, SLOT(on_actionCaptura_triggered()));
     connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
     connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
     connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
@@ -92,9 +94,11 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionSiguienteFotograma->setEnabled(cond);
     ui->actionAnteriorFotograma->setEnabled(cond);
     ui->menuVelocidad->setEnabled(cond);
+    ui->actionCaptura->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
     ui->buttonCerrar->setEnabled(cond);
+    ui->buttonCaptura->setEnabled(cond);
     ui->buttonPlay->setEnabled(cond);
     ui->buttonPausa->setEnabled(cond);
     ui->buttonStop->setEnabled(cond);
@@ -132,7 +136,6 @@ void MoviePlayer::updateFrameSlider() {
     //Actualizar tiempo
     int total = movie->frameCount() * movie->nextFrameDelay() / 1000;
     int actual = movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
-
     tiempo->setText(QString::number(actual) + " / " + QString::number(total)+ "s");
 }
 
@@ -374,10 +377,33 @@ void MoviePlayer::on_actionMitad_triggered() { speed/=2; updateVelocidad(); }
  HERRAMIENTAS
 **************************/
 
+void MoviePlayer::on_actionCaptura_triggered() {
+
+    QPixmap captura = movie->currentPixmap();
+
+    //Seleccionar ruta nueva
+    QString ruta = QFileDialog::getSaveFileName(this, tr("Guardar captura"), QString(),
+            tr("Todos los archivos (*);;Imagen BPM (*.bpm);;Imagen GIF (*.gif);;Imagen JPG (*.jpg);;Imagen JPEG (*.jpeg);;Imagen PNG (*.png);;Imagen PPM (*.ppm);;Imagen XBM (*.xbm);;Imagen XPM (*.xpm);;"));
+
+    if (!ruta.isEmpty()) {
+
+        QFile file(ruta);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::critical(this, WINDOW_CRITICAL, "No se puede guardar la captura.");
+            return;
+        }
+
+        //Guardar captura en la ruta indicada
+        captura.save(ruta,0,60);
+    }
+}
+
+
 void MoviePlayer::on_actionAjustarVentana_toggled(bool cond) {
 
      ui->labelMovie->setScaledContents(cond);
 }
+
 
 void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 

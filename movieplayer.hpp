@@ -55,6 +55,8 @@ class MoviePlayer : public QMainWindow {
         void on_actionReproducir_triggered();
         void on_actionPausar_triggered();
         void on_actionDetener_triggered();
+        void on_actionSiguienteFotograma_triggered();
+        void on_actionAnteriorFotograma_triggered();
         void on_actionNormal_triggered();
         void on_actionIncrementar_triggered();
         void on_actionReducir_triggered();

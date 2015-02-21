@@ -205,6 +205,10 @@
     <addaction name="actionReproducir"/>
     <addaction name="actionPausar"/>
     <addaction name="actionDetener"/>
+    <addaction name="separator"/>
+    <addaction name="actionSiguienteFotograma"/>
+    <addaction name="actionAnteriorFotograma"/>
+    <addaction name="separator"/>
     <addaction name="menuVelocidad"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
@@ -368,6 +372,9 @@
    </property>
   </action>
   <action name="actionReproducir">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Reproducir</string>
    </property>
@@ -376,6 +383,9 @@
    </property>
   </action>
   <action name="actionPausar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Pausar</string>
    </property>
@@ -384,6 +394,9 @@
    </property>
   </action>
   <action name="actionDetener">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Detener</string>
    </property>
@@ -477,6 +490,28 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionSiguienteFotograma">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Siguiente fotograma</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionAnteriorFotograma">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Anterior fotograma</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
    </property>
   </action>
  </widget>

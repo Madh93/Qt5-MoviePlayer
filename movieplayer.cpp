@@ -81,6 +81,8 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionReproducir->setEnabled(cond);
     ui->actionPausar->setEnabled(cond);
     ui->actionDetener->setEnabled(cond);
+    ui->actionSiguienteFotograma->setEnabled(cond);
+    ui->actionAnteriorFotograma->setEnabled(cond);
     ui->menuVelocidad->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
@@ -320,6 +322,16 @@ void MoviePlayer::on_actionReproducir_triggered() { movie->start(); }
 void MoviePlayer::on_actionPausar_triggered() { pausar(); }
 
 void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
+
+void MoviePlayer::on_actionSiguienteFotograma_triggered() {
+
+    movie->jumpToFrame(movie->currentFrameNumber()+1);
+}
+
+void MoviePlayer::on_actionAnteriorFotograma_triggered() {
+
+    movie->jumpToFrame(movie->currentFrameNumber()-1);
+}
 
 void MoviePlayer::on_actionNormal_triggered() { speed=100; updateVelocidad(); }
 

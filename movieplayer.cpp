@@ -7,6 +7,9 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     movie = new Movie;
 
+    //Ajustes
+    ui->labelMovie->setBackgroundRole(QPalette::Dark);
+
     //Señales y slots de los botones
     connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));
     connect(ui->buttonCerrar, SIGNAL(clicked()), this, SLOT(on_actionCerrar_triggered()));

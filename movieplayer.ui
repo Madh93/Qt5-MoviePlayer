@@ -183,6 +183,7 @@
     <property name="title">
      <string>Herramientas</string>
     </property>
+    <addaction name="actionAjustarVentana"/>
    </widget>
    <widget class="QMenu" name="menuPreferencias">
     <property name="title">
@@ -361,6 +362,20 @@
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="actionAjustarVentana">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Ajustar a ventana</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
    </property>
   </action>
  </widget>

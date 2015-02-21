@@ -24,7 +24,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
     connect(ui->slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
-    connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame(const QRect&)));
+    connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
 }
 
 
@@ -65,6 +65,8 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionAbrirTerminal->setEnabled(cond);
     ui->actionRenombrar->setEnabled(cond);
     ui->actionEliminar->setEnabled(cond);
+    ui->actionAjustarVentana->setEnabled(cond);
+        ui->actionAjustarVentana->setChecked(false);
     ui->buttonCerrar->setEnabled(cond);
     ui->buttonPlay->setEnabled(cond);
     ui->buttonPausa->setEnabled(cond);
@@ -99,7 +101,7 @@ void MoviePlayer::updateFrameSlider() {
 }
 
 
-void MoviePlayer::showFrame(const QRect& rect) {
+void MoviePlayer::showFrame() {
 
     QPixmap pixmap = movie->currentPixmap();
     ui->labelMovie->setPixmap(pixmap);
@@ -300,6 +302,10 @@ void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
  HERRAMIENTAS
 **************************/
 
+void MoviePlayer::on_actionAjustarVentana_toggled(bool cond) {
+
+     ui->labelMovie->setScaledContents(cond);
+}
 
 
 /***************************

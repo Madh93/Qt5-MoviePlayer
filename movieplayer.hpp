@@ -32,7 +32,7 @@ class MoviePlayer : public QMainWindow {
         void pausar();
         void updateFrameSlider();
         void setFrameSlider(int frame);
-        void showFrame(const QRect& rect);
+        void showFrame();
 
         //Archivo
         void on_actionAbrir_triggered();
@@ -54,6 +54,7 @@ class MoviePlayer : public QMainWindow {
         void on_actionDetener_triggered();
 
         //Herramientas
+        void on_actionAjustarVentana_toggled(bool cond);
 
         //Preferencias
         void on_actionPantallaCompleta_toggled(bool cond);

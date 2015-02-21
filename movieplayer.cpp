@@ -7,9 +7,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     speed = 100;
     movie = new Movie;
-    tamano = new QLabel;
     velocidad = new QLabel;
-    ui->statusBar->addPermanentWidget(tamano);
     ui->statusBar->addWidget(velocidad);
 
     //Ajustes
@@ -42,11 +40,6 @@ MoviePlayer::~MoviePlayer() {
         movie = NULL;
     }
 
-    if (tamano) {
-        delete tamano;
-        tamano = NULL;
-    }
-
     if (velocidad) {
         delete velocidad;
         velocidad = NULL;
@@ -61,12 +54,6 @@ MoviePlayer::~MoviePlayer() {
 **************************/
 
 void MoviePlayer::limpiarMovie() {
-
-    if (tamano) {
-        delete tamano;
-        tamano = new QLabel;
-        ui->statusBar->addPermanentWidget(tamano);
-    }
 
     if (velocidad) {
         delete velocidad;
@@ -167,7 +154,6 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Cargar movie
         movie->setFileName(ruta);
-        movie->jumpToFrame(0);
 
         if (!movie->isValid()) {
             QMessageBox::critical(this, WINDOW_CRITICAL, "El formato es inválido");
@@ -177,11 +163,6 @@ void MoviePlayer::on_actionAbrir_triggered() {
         //Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
-
-        movie->jumpToFrame(0);
-        tamano->setText(QString::number(movie->currentPixmap().width()) +
-                        " x " + QString::number(movie->currentPixmap().height()));
-        movie->jumpToFrame(-1);
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
     }

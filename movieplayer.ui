@@ -195,8 +195,12 @@
       <string>Velocidad</string>
      </property>
      <addaction name="actionNormal"/>
+     <addaction name="separator"/>
      <addaction name="actionIncrementar"/>
      <addaction name="actionReducir"/>
+     <addaction name="separator"/>
+     <addaction name="actionDoblar"/>
+     <addaction name="actionMitad"/>
     </widget>
     <addaction name="actionReproducir"/>
     <addaction name="actionPausar"/>
@@ -445,7 +449,7 @@
     <string>Incrementar</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl++</string>
+    <string>+</string>
    </property>
   </action>
   <action name="actionReducir">
@@ -454,6 +458,22 @@
    </property>
    <property name="text">
     <string>Reducir</string>
+   </property>
+   <property name="shortcut">
+    <string>-</string>
+   </property>
+  </action>
+  <action name="actionDoblar">
+   <property name="text">
+    <string>Doblar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionMitad">
+   <property name="text">
+    <string>Mitad</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>

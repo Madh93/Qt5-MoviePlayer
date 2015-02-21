@@ -327,6 +327,9 @@ void MoviePlayer::on_actionIncrementar_triggered() { speed+=10; updateVelocidad(
 
 void MoviePlayer::on_actionReducir_triggered() { speed-=10; updateVelocidad(); }
 
+void MoviePlayer::on_actionDoblar_triggered() { speed*=2; updateVelocidad(); }
+
+void MoviePlayer::on_actionMitad_triggered() { speed/=2; updateVelocidad(); }
 
 /***************************
  HERRAMIENTAS

@@ -58,6 +58,8 @@ class MoviePlayer : public QMainWindow {
         void on_actionNormal_triggered();
         void on_actionIncrementar_triggered();
         void on_actionReducir_triggered();
+        void on_actionDoblar_triggered();
+        void on_actionMitad_triggered();
 
         //Herramientas
         void on_actionAjustarVentana_toggled(bool cond);

@@ -8,7 +8,9 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     speed = 100;
     movie = new Movie;
     velocidad = new QLabel;
+    tiempo = new QLabel;
     ui->statusBar->addWidget(velocidad);
+    ui->statusBar->addPermanentWidget(tiempo);
 
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
@@ -49,6 +51,11 @@ MoviePlayer::~MoviePlayer() {
         velocidad = NULL;
     }
 
+    if (tiempo) {
+        delete tiempo;
+        tiempo = NULL;
+    }
+
     speed = 0;
 }
 
@@ -59,15 +66,10 @@ MoviePlayer::~MoviePlayer() {
 
 void MoviePlayer::limpiarMovie() {
 
-    if (velocidad) {
-        delete velocidad;
-        velocidad = new QLabel;
-        ui->statusBar->addWidget(velocidad);
-    }
-
     speed = 100;
     movie->stop();
     ui->slider->setValue(0);
+    tiempo->setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
 }
@@ -126,8 +128,12 @@ void MoviePlayer::updateFrameSlider() {
             ui->slider->setMaximum(movie->frameCount() - 1);
         ui->slider->setValue(movie->currentFrameNumber());
     }
-    //tiempo total = movie->framecount * movie->nextFrameDelay() / 1000;
-    //qDebug() << movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
+
+    //Actualizar tiempo
+    int total = movie->frameCount() * movie->nextFrameDelay() / 1000;
+    int actual = movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
+
+    tiempo->setText(QString::number(actual) + " / " + QString::number(total)+ "s");
 }
 
 

@@ -24,7 +24,7 @@ class MoviePlayer : public QMainWindow {
         Ui::MoviePlayer *ui;
         int speed;
         Movie *movie;
-        QLabel *velocidad;
+        QLabel *velocidad, *tiempo;
 
         void limpiarMovie();
         void activarFuncionalidades(bool cond);

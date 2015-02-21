@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
+#define MAX_SIZE_CACHED 5242880
+
 
 // TÍTULOS DE VENTANA
 

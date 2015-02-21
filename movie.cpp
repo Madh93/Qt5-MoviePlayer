@@ -33,3 +33,5 @@ QString Movie::baseName() { return info->baseName(); }
 QString Movie::extension() { return "." + info->suffix(); }
 
 QString Movie::directory() { return info->path() + "/"; }
+
+qint64 Movie::size() { return info->size(); }

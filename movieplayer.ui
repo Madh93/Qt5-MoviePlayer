@@ -184,6 +184,7 @@
      <string>Herramientas</string>
     </property>
     <addaction name="actionAjustarVentana"/>
+    <addaction name="actionActivarCache"/>
    </widget>
    <widget class="QMenu" name="menuPreferencias">
     <property name="title">
@@ -376,6 +377,26 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="actionActivarCache">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Activar caché</string>
+   </property>
+   <property name="statusTip">
+    <string>Aviso: Alto consumo de memoria (por defecto archivos &lt;= 5MB)</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
    </property>
   </action>
  </widget>

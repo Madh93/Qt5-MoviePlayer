@@ -55,6 +55,7 @@ class MoviePlayer : public QMainWindow {
 
         //Herramientas
         void on_actionAjustarVentana_toggled(bool cond);
+        void on_actionActivarCache_toggled(bool cond);
 
         //Preferencias
         void on_actionPantallaCompleta_toggled(bool cond);

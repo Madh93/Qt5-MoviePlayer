@@ -26,6 +26,7 @@ class Movie : public QMovie {
         QString baseName();     // movie
         QString extension();    // .gif
         QString directory();    // /home/migue/Escritorio/
+        qint64 size();             // 1 (MB)
 
 };
 

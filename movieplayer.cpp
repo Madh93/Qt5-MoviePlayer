@@ -92,7 +92,7 @@ void MoviePlayer::setFrameSlider(int frame) {
 
 void MoviePlayer::updateFrameSlider() {
 
-    //Comprobar que no es una imagen estática
+    //Comprobar que no es una imagen estática (MJPEG no admite esta propiedad)
     if (movie->currentFrameNumber() >= 0) {
         if (movie->frameCount() > 0)
             ui->slider->setMaximum(movie->frameCount() - 1);
@@ -136,11 +136,10 @@ void MoviePlayer::on_actionAbrir_triggered() {
             return;
         }
 
-        //movie->start();
-
         //Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         activarFuncionalidades(true);
+        on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
     }
 
 }
@@ -306,6 +305,17 @@ void MoviePlayer::on_actionAjustarVentana_toggled(bool cond) {
 
      ui->labelMovie->setScaledContents(cond);
 }
+
+void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
+
+    if (cond)
+        movie->setCacheMode(QMovie::CacheAll);
+    else
+        movie->setCacheMode(QMovie::CacheNone);
+
+    ui->actionActivarCache->setChecked(cond);
+}
+
 
 
 /***************************

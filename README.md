@@ -1,3 +1,4 @@
-# Movie
+# Qt5-MoviePlayer
+#### Simple movie player in Qt5
 
-Práctica 2 de Sistemas Operativos Avanzados
+Práctica 2. Sistemas Operativos Avanzados - ULL

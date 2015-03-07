@@ -17,6 +17,7 @@
 #include "movie.hpp"
 #include "slider.hpp"
 #include "dispositivos.hpp"
+#include "acerca.hpp"
 
 
 namespace Ui {

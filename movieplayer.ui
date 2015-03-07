@@ -238,7 +238,7 @@
      <x>0</x>
      <y>0</y>
      <width>652</width>
-     <height>22</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -592,6 +592,9 @@
    </property>
   </action>
   <action name="actionAvanzar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Avanzar 1s</string>
    </property>
@@ -600,6 +603,9 @@
    </property>
   </action>
   <action name="actionRetroceder">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Retroceder 1s</string>
    </property>

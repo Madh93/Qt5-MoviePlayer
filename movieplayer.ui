@@ -58,7 +58,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="buttonCaptura">
+         <widget class="QPushButton" name="buttonCapturarPantalla">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -69,7 +69,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Captura</string>
+           <string>Captura pantalla</string>
           </property>
          </widget>
         </item>
@@ -246,6 +246,7 @@
      <string>Archivo</string>
     </property>
     <addaction name="actionAbrir"/>
+    <addaction name="actionCapturarVideo"/>
     <addaction name="separator"/>
     <addaction name="actionCerrar"/>
     <addaction name="actionSalir"/>
@@ -297,7 +298,7 @@
     <property name="title">
      <string>Herramientas</string>
     </property>
-    <addaction name="actionCaptura"/>
+    <addaction name="actionCapturarPantalla"/>
     <addaction name="separator"/>
     <addaction name="actionAjustarVentana"/>
     <addaction name="actionActivarCache"/>
@@ -613,12 +614,12 @@
     <string>Ctrl+8</string>
    </property>
   </action>
-  <action name="actionCaptura">
+  <action name="actionCapturarPantalla">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Captura</string>
+    <string>Capturar pantalla</string>
    </property>
   </action>
   <action name="actionAutoReproducir">
@@ -627,6 +628,11 @@
    </property>
    <property name="text">
     <string>Auto-reproducir</string>
+   </property>
+  </action>
+  <action name="actionCapturarVideo">
+   <property name="text">
+    <string>Capturar vídeo</string>
    </property>
   </action>
  </widget>

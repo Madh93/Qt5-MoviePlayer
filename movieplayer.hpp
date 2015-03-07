@@ -7,6 +7,8 @@
 #include <QProcess>
 #include <QPixmap>
 #include <QSettings>
+#include <QCamera>
+#include <QCameraViewfinder>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -41,6 +43,7 @@ class MoviePlayer : public QMainWindow {
 
         //Archivo
         void on_actionAbrir_triggered();
+        void on_actionCapturarVideo_triggered();
         void on_actionCerrar_triggered();
         void on_actionSalir_triggered();
 

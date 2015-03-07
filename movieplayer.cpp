@@ -18,19 +18,16 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     //Ajustes
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
-    ui->buttonAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
-    ui->buttonCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+    ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+    ui->actionCapturarPantalla->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
     ui->buttonPlay->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     ui->buttonPausa->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     ui->buttonStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     ui->buttonRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
     ui->buttonAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
-    ui->buttonCapturarPantalla->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
 
     //Señales y slots de los botones
-    connect(ui->buttonAbrir, SIGNAL(clicked()), this, SLOT(on_actionAbrir_triggered()));
-    connect(ui->buttonCerrar, SIGNAL(clicked()), this, SLOT(on_actionCerrar_triggered()));
-    connect(ui->buttonCapturarPantalla, SIGNAL(clicked()), this, SLOT(on_actionCapturarPantalla_triggered()));
     connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
     connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
     connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
@@ -100,8 +97,6 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionCapturarPantalla->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
-    ui->buttonCerrar->setEnabled(cond);
-    ui->buttonCapturarPantalla->setEnabled(cond);
     ui->buttonPlay->setEnabled(cond);
     ui->buttonPausa->setEnabled(cond);
     ui->buttonStop->setEnabled(cond);

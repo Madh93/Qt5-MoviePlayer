@@ -66,7 +66,7 @@ class MoviePlayer : public QMainWindow {
         void on_actionMitad_triggered();
 
         //Herramientas
-        void on_actionCaptura_triggered();
+        void on_actionCapturarPantalla_triggered();
         void on_actionAjustarVentana_toggled(bool cond);
         void on_actionActivarCache_toggled(bool cond);
 

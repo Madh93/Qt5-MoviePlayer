@@ -207,10 +207,6 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
     }
 */
 
-    //camara = new Camara(this);
-    //camara->show();
-    Dispositivos dialogo;
-    dialogo.exec();
 
 }
 
@@ -413,6 +409,12 @@ void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 /***************************
  PREFERENCIAS
 **************************/
+
+void MoviePlayer::on_actionDispositivos_triggered() {
+
+    Dispositivos window;
+    window.exec();
+}
 
 void MoviePlayer::on_actionAutoReproducir_toggled(bool cond) {
 

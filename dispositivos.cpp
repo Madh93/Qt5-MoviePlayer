@@ -1,12 +1,16 @@
 #include "dispositivos.hpp"
 #include "ui_dispositivos.h"
 
-Dispositivos::Dispositivos(QWidget *parent) :
-    QDialog(parent),
+Dispositivos::Dispositivos(QString current) :
+    QDialog(0),
     ui(new Ui::Dispositivos) {
         ui->setupUi(this);
 
+        actual = current;
+        qDebug() << "actual: " << actual;
         dispositivos = QCameraInfo::availableCameras();
+
+        ui->comboBox->setCurrentIndex(0);
         setDispositivos();
 }
 
@@ -18,11 +22,22 @@ Dispositivos::~Dispositivos() {
 
 void Dispositivos::setDispositivos() {
 
+    //Añadir dispositivos
     ui->comboBox->addItem("Predeterminado");
-
     if (dispositivos.size() > 0)
         foreach (const QCameraInfo &camara, dispositivos)
             ui->comboBox->addItem(camara.description());
+    ui->comboBox->addItem("Fantasma");
+
+    //Seleccionar por defecto
+    if (actual.isEmpty())
+        ui->comboBox->setCurrentIndex(0);
+    else
+        for (int i=0; i<dispositivos.size(); i++)
+            if (dispositivos[i].deviceName() == actual) {
+                ui->comboBox->setCurrentIndex(i+1);
+                break;
+            }
 }
 
 
@@ -32,6 +47,10 @@ QString Dispositivos::getDispositivo() {
 
     if (index == 0)
         index++;
+    if (index == 2)
+        index--;
+
+    qDebug() << "Dispositivo: " << ui->comboBox->currentText();
 
    return dispositivos[index-1].deviceName();
 }

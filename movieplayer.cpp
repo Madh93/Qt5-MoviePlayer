@@ -412,10 +412,13 @@ void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 
 void MoviePlayer::on_actionDispositivos_triggered() {
 
-    Dispositivos window;
-    if (window.exec() == QDialog::Accepted) {
+    //preferencias.remove("dispositivo");
+    Dispositivos w(preferencias.value("dispositivo").toString());
+    if (w.exec() == QDialog::Accepted) {
 
-        qDebug() << window.getDispositivo();
+        //qDebug() << w.getDispositivo();
+        preferencias.setValue("dispositivo", w.getDispositivo());
+        qDebug() << "Seleccionado: " << preferencias.value("dispositivo").toString();
     }
 }
 

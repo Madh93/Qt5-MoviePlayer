@@ -5,6 +5,7 @@
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QCameraInfo>
+#include <QDebug>
 
 namespace Ui {
     class Dispositivos;
@@ -18,12 +19,13 @@ class Dispositivos : public QDialog {
 
         Ui::Dispositivos *ui;
         QList<QCameraInfo> dispositivos;
+        QString actual;
 
         void setDispositivos();
 
     public:
 
-        explicit Dispositivos(QWidget *parent = 0);
+        explicit Dispositivos(QString current = "");
         ~Dispositivos();
 
         QString getDispositivo();

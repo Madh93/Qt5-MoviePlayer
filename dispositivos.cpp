@@ -45,12 +45,12 @@ QString Dispositivos::getDispositivo() {
 
     int index = ui->comboBox->currentIndex();
 
-    if (index == 0)
-        index++;
     if (index == 2)
         index--;
 
     qDebug() << "Dispositivo: " << ui->comboBox->currentText();
-
-   return dispositivos[index-1].deviceName();
+    if (index == 0)
+        return "";
+    else
+        return dispositivos[index-1].deviceName();
 }

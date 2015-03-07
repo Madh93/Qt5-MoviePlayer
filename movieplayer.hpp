@@ -30,6 +30,8 @@ class MoviePlayer : public QMainWindow {
         Ui::MoviePlayer *ui;
         int speed;
         Movie *movie;
+        QCamera *camara;
+        QCameraViewfinder *viewfinder;
         Slider *slider;
         QLabel *velocidad, *tiempo;
         QSettings preferencias;

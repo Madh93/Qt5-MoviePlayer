@@ -7,6 +7,8 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     speed = 100;
     movie = new Movie;
+    camara = NULL;
+    viewfinder = NULL;
     slider = new Slider;
     velocidad = new QLabel;
     tiempo = new QLabel;
@@ -44,6 +46,16 @@ MoviePlayer::~MoviePlayer() {
     if (movie) {
         delete movie;
         movie = NULL;
+    }
+
+    if (camara) {
+        delete camara;
+        camara = NULL;
+    }
+
+    if (viewfinder) {
+        delete viewfinder;
+        viewfinder = NULL;
     }
 
     if (slider) {
@@ -183,31 +195,50 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
 void MoviePlayer::on_actionCapturarVideo_triggered() {
 
-    /*QCamera *camera = new QCamera;
-    QCameraViewfinder *viewfinder = new QCameraViewfinder;
-    camera->setViewfinder(viewfinder);
-    viewfinder->setSizePolicy(QSizePolicy::Maximum,
-                              QSizePolicy::Maximum);
+    qDebug() << "ENTRA";
+    // Borrar camara anterior
+    if (camara) {
+        delete camara;
+        camara = NULL;
+    }
+
+    qDebug() << "ENTRA2";
+    if (viewfinder) {
+        delete viewfinder;
+        viewfinder = NULL;
+    }
+
+    // Abrir camara por defecto o guardad en preferencias
+    QString ruta = preferencias.value("dispositivo").toString();
+
+    if (ruta.isEmpty()) {
+        camara = new QCamera;
+        preferencias.setValue("dispositivo", "");
+    }
+
+    else {
+        QList<QCameraInfo> dispositivos = QCameraInfo::availableCameras();
+        foreach (const QCameraInfo &disp, dispositivos)
+                if (disp.deviceName() == ruta) {
+                    camara = new QCamera(disp);
+                    break;
+                }
+        // Si la camara ya no existe
+        if (camara == NULL) {
+            camara = new QCamera;
+            preferencias.setValue("dispositivo", "");
+        }
+    }
+
+    // Si no hay camara (COMPROBAR)
+    if (camara == NULL)
+        return;
+
+    viewfinder = new QCameraViewfinder;
+    viewfinder->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
     setCentralWidget(viewfinder);
-
-    camera->start();
-*/
-/*
-    if (camera){
-        delete camera;
-        camera = NULL;
-    }
-*/
-/*
-    QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
-    qDebug() << "nº devices: " << cameras.size();
-    foreach (const QCameraInfo &cameraInfo, cameras) {
-        qDebug() << "nombre: " << cameraInfo.deviceName();
-        qDebug() << "nombre: " << cameraInfo.description();
-    }
-*/
-
-
+    camara->setViewfinder(viewfinder);
+    camara->start();
 }
 
 
@@ -412,13 +443,10 @@ void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 
 void MoviePlayer::on_actionDispositivos_triggered() {
 
-    //preferencias.remove("dispositivo");
     Dispositivos w(preferencias.value("dispositivo").toString());
-    if (w.exec() == QDialog::Accepted) {
 
-        //qDebug() << w.getDispositivo();
+    if (w.exec() == QDialog::Accepted) {
         preferencias.setValue("dispositivo", w.getDispositivo());
-        qDebug() << "Seleccionado: " << preferencias.value("dispositivo").toString();
     }
 }
 

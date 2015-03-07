@@ -6,22 +6,16 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     ui->setupUi(this);
 
     speed = 100;
-    movie = new Movie;
+    movie = NULL;
     camara = NULL;
-    viewfinder = new QCameraViewfinder;
-    viewfinder->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-    slider = new Slider;
-    velocidad = new QLabel;
-    tiempo = new QLabel;
 
-    stackedWidget = new QStackedWidget;
-    stackedWidget->addWidget(ui->label);
-    stackedWidget->addWidget(viewfinder);
-    this->setCentralWidget(stackedWidget);
-
-    ui->toolBarInferior->addWidget(slider);
-    ui->statusBar->addWidget(velocidad);
-    ui->statusBar->addPermanentWidget(tiempo);
+    viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
+    stackedWidget.addWidget(ui->label);
+    stackedWidget.addWidget(&viewfinder);
+    this->setCentralWidget(&stackedWidget);
+    ui->toolBarInferior->addWidget(&slider);
+    ui->statusBar->addWidget(&velocidad);
+    ui->statusBar->addPermanentWidget(&tiempo);
 
     //Preferencias
     if (preferencias.value("auto-reproduccion").toBool())
@@ -37,11 +31,6 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     ui->actionDetener->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     ui->actionRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
     ui->actionAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
-
-    //Conectar movie, slider y label
-    connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
-    connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
-    connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
 }
 
 
@@ -59,26 +48,6 @@ MoviePlayer::~MoviePlayer() {
         camara = NULL;
     }
 
-    if (viewfinder) {
-        delete viewfinder;
-        viewfinder = NULL;
-    }
-
-    if (slider) {
-        delete slider;
-        slider = NULL;
-    }
-
-    if (velocidad) {
-        delete velocidad;
-        velocidad = NULL;
-    }
-
-    if (tiempo) {
-        delete tiempo;
-        tiempo = NULL;
-    }
-
     speed = 0;
 }
 
@@ -89,10 +58,18 @@ MoviePlayer::~MoviePlayer() {
 
 void MoviePlayer::limpiarMovie() {
 
+    if (movie) {
+        disconnect(&slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
+        disconnect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
+        disconnect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
+        movie->stop();
+        delete movie;
+        movie = NULL;
+    }
+
     speed = 100;
-    movie->stop();
-    slider->setValue(0);
-    tiempo->setText("");
+    slider.setValue(0);
+    tiempo.setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
 }
@@ -105,12 +82,6 @@ void MoviePlayer::limpiarCamara() {
         delete camara;
         camara = NULL;
     }
-/*
-    if (viewfinder) {
-        delete viewfinder;
-        viewfinder = NULL;
-    }
-    */
 }
 
 
@@ -133,7 +104,7 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionCapturarPantalla->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
-    slider->setEnabled(cond);
+    slider.setEnabled(cond);
 }
 
 
@@ -149,14 +120,14 @@ void MoviePlayer::updateFrameSlider() {
     //Comprobar que no es una imagen estática (MJPEG no admite esta propiedad)
     if (movie->currentFrameNumber() >= 0) {
         if (movie->frameCount() > 0)
-            slider->setMaximum(movie->frameCount() - 1);
-        slider->setValue(movie->currentFrameNumber());
+            slider.setMaximum(movie->frameCount() - 1);
+        slider.setValue(movie->currentFrameNumber());
     }
 
     //Actualizar tiempo
     int total = movie->frameCount() * movie->nextFrameDelay() / 1000;
     int actual = movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
-    tiempo->setText(QString::number(actual) + " / " + QString::number(total)+ "s");
+    tiempo.setText(QString::number(actual) + " / " + QString::number(total)+ "s");
 }
 
 
@@ -170,7 +141,7 @@ void MoviePlayer::showFrame() {
 void MoviePlayer::updateVelocidad() {
 
     movie->setSpeed(speed);
-    velocidad->setText("Velocidad: " + QString::number(speed) + "%");
+    velocidad.setText("Velocidad: " + QString::number(speed) + "%");
 }
 
 
@@ -196,6 +167,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
         limpiarCamara();
 
         //Cargar movie
+        movie = new Movie;
         movie->setFileName(ruta);
 
         if (!movie->isValid()) {
@@ -208,11 +180,16 @@ void MoviePlayer::on_actionAbrir_triggered() {
             movie->start();
 
         //Ajustes
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget.setCurrentIndex(0);
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
+
+        //Conectar movie, slider y label
+        connect(&slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
+        connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
+        connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
     }
 }
 
@@ -251,8 +228,8 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
         return;
     }
 
-    stackedWidget->setCurrentIndex(1);
-    camara->setViewfinder(viewfinder);
+    stackedWidget.setCurrentIndex(1);
+    camara->setViewfinder(&viewfinder);
     camara->start();
 }
 
@@ -329,10 +306,10 @@ void MoviePlayer::on_actionRenombrar_triggered() {
 
         else {
 
-            AvisoExistente *aviso = new AvisoExistente;
+            AvisoExistente aviso;
 
             //Si se desea sobreescribir un archivo con el mismo nombre
-            if (aviso->exec() == QMessageBox::Save) {
+            if (aviso.exec() == QMessageBox::Save) {
 
                 QFile fileNuevo(nuevaRuta);
                 if (!fileNuevo.open(QIODevice::WriteOnly)) {
@@ -345,9 +322,6 @@ void MoviePlayer::on_actionRenombrar_triggered() {
                 movie->setFileName(nuevaRuta);
                 this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
             }
-
-            delete aviso;
-            aviso = NULL;
         }
     }
 }
@@ -355,17 +329,14 @@ void MoviePlayer::on_actionRenombrar_triggered() {
 
 void MoviePlayer::on_actionEliminar_triggered() {
 
-    AvisoEliminar *aviso = new AvisoEliminar;
+    AvisoEliminar aviso;
 
     //Eliminar del disco si se da el visto bueno
-    if (aviso->exec() == QMessageBox::Save) {
+    if (aviso.exec() == QMessageBox::Save) {
 
         QFile::remove(movie->path());
         limpiarMovie();
     }
-
-    delete aviso;
-    aviso = NULL;
 }
 
 

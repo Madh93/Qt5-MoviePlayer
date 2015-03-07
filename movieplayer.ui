@@ -386,7 +386,7 @@
     <string>Activar caché</string>
    </property>
    <property name="statusTip">
-    <string>Aviso: Alto consumo de memoria (por defecto archivos &lt;= 5MB)</string>
+    <string>Aviso: Alto consumo de memoria (por defecto archivos &lt;= 10MB)</string>
    </property>
    <property name="whatsThis">
     <string/>

@@ -11,6 +11,7 @@
 #include <QCameraViewfinder>
 #include <QCameraInfo>
 #include <QStackedWidget>
+#include <QLabel>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -30,12 +31,12 @@ class MoviePlayer : public QMainWindow {
 
         Ui::MoviePlayer *ui;
         int speed;
+        QStackedWidget stackedWidget;
         Movie *movie;
         QCamera *camara;
-        QCameraViewfinder *viewfinder;
-        QStackedWidget *stackedWidget;
-        Slider *slider;
-        QLabel *velocidad, *tiempo;
+        QCameraViewfinder viewfinder;
+        Slider slider;
+        QLabel velocidad, tiempo;
         QSettings preferencias;
 
         void limpiarMovie();

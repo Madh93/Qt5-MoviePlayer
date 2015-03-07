@@ -413,7 +413,10 @@ void MoviePlayer::on_actionActivarCache_toggled(bool cond) {
 void MoviePlayer::on_actionDispositivos_triggered() {
 
     Dispositivos window;
-    window.exec();
+    if (window.exec() == QDialog::Accepted) {
+
+        qDebug() << window.getDispositivo();
+    }
 }
 
 void MoviePlayer::on_actionAutoReproducir_toggled(bool cond) {

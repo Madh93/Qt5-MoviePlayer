@@ -1,6 +1,13 @@
 #include "slider.hpp"
 
-Slider::Slider(QWidget *parent) : QSlider(parent) {}
+Slider::Slider(QWidget *parent) : QSlider(parent) {
+
+    setEnabled(false);
+    setMaximum(100);
+    setPageStep(1);
+    setOrientation(Qt::Horizontal);
+    setTickPosition(Slider::TicksBelow);
+}
 
 
 Slider::~Slider() {}

@@ -7,8 +7,11 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
 
     speed = 100;
     movie = new Movie;
+    slider = new Slider;
     velocidad = new QLabel;
     tiempo = new QLabel;
+
+    ui->toolBarInferior->addWidget(slider);
     ui->statusBar->addWidget(velocidad);
     ui->statusBar->addPermanentWidget(tiempo);
 
@@ -16,26 +19,20 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     if (preferencias.value("auto-reproduccion").toBool())
         ui->actionAutoReproducir->setChecked(true);
 
-    //Ajustes
+    //Añadir iconos
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
     ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
     ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
     ui->actionCapturarPantalla->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
-    ui->buttonPlay->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
-    ui->buttonPausa->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-    ui->buttonStop->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-    ui->buttonRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
-    ui->buttonAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+    ui->actionReproducir->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+    ui->actionPausar->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+    ui->actionDetener->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+    ui->actionRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
+    ui->actionAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
 
-    //Señales y slots de los botones
-    connect(ui->buttonPlay, SIGNAL(clicked()), movie, SLOT(start()));
-    connect(ui->buttonPausa, SIGNAL(clicked()), this, SLOT(pausar()));
-    connect(ui->buttonStop, SIGNAL(clicked()), movie, SLOT(stop()));
-    connect(ui->buttonRetroceder, SIGNAL(clicked()), this, SLOT(on_actionRetroceder_triggered()));
-    connect(ui->buttonAvanzar, SIGNAL(clicked()), this, SLOT(on_actionAvanzar_triggered()));
-
+    //Conectar movie, slider y label
+    connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
-    connect(ui->slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
     connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
 }
 
@@ -47,6 +44,11 @@ MoviePlayer::~MoviePlayer() {
     if (movie) {
         delete movie;
         movie = NULL;
+    }
+
+    if (slider) {
+        delete slider;
+        slider = NULL;
     }
 
     if (velocidad) {
@@ -71,7 +73,7 @@ void MoviePlayer::limpiarMovie() {
 
     speed = 100;
     movie->stop();
-    ui->slider->setValue(0);
+    slider->setValue(0);
     tiempo->setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
@@ -97,21 +99,13 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionCapturarPantalla->setEnabled(cond);
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
-    ui->buttonPlay->setEnabled(cond);
-    ui->buttonPausa->setEnabled(cond);
-    ui->buttonStop->setEnabled(cond);
-    ui->buttonRetroceder->setEnabled(cond);
-    ui->buttonAvanzar->setEnabled(cond);
-    ui->slider->setEnabled(cond);
+    slider->setEnabled(cond);
 }
 
 
 /***************************
  SLOTS
 **************************/
-
-void MoviePlayer::pausar() { movie->setPaused(movie->state() == QMovie::Running); }
-
 
 void MoviePlayer::setFrameSlider(int frame) { movie->jumpToFrame(frame); }
 
@@ -121,8 +115,8 @@ void MoviePlayer::updateFrameSlider() {
     //Comprobar que no es una imagen estática (MJPEG no admite esta propiedad)
     if (movie->currentFrameNumber() >= 0) {
         if (movie->frameCount() > 0)
-            ui->slider->setMaximum(movie->frameCount() - 1);
-        ui->slider->setValue(movie->currentFrameNumber());
+            slider->setMaximum(movie->frameCount() - 1);
+        slider->setValue(movie->currentFrameNumber());
     }
 
     //Actualizar tiempo
@@ -325,7 +319,7 @@ void MoviePlayer::on_actionEliminar_triggered() {
 
 void MoviePlayer::on_actionReproducir_triggered() { movie->start(); }
 
-void MoviePlayer::on_actionPausar_triggered() { pausar(); }
+void MoviePlayer::on_actionPausar_triggered() { movie->setPaused(movie->state() == QMovie::Running); }
 
 void MoviePlayer::on_actionDetener_triggered() { movie->stop(); }
 

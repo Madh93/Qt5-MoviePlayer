@@ -27,6 +27,7 @@ class MoviePlayer : public QMainWindow {
         Ui::MoviePlayer *ui;
         int speed;
         Movie *movie;
+        Slider *slider;
         QLabel *velocidad, *tiempo;
         QSettings preferencias;
 
@@ -35,7 +36,6 @@ class MoviePlayer : public QMainWindow {
 
     private slots:
 
-        void pausar();
         void updateFrameSlider();
         void setFrameSlider(int frame);
         void showFrame();

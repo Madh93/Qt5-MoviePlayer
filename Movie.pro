@@ -16,11 +16,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         movieplayer.cpp \
     movie.cpp \
-    slider.cpp
+    slider.cpp \
+    dispositivos.cpp
 
 HEADERS  += movieplayer.hpp \
     base.hpp \
     movie.hpp \
-    slider.hpp
+    slider.hpp \
+    dispositivos.hpp
 
-FORMS    += movieplayer.ui
+FORMS    += movieplayer.ui \
+    dispositivos.ui

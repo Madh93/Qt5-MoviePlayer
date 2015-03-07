@@ -9,10 +9,13 @@
 #include <QSettings>
 #include <QCamera>
 #include <QCameraViewfinder>
+#include <QCameraInfo>
 
 #include "base.hpp"
 #include "movie.hpp"
 #include "slider.hpp"
+#include "dispositivos.hpp"
+
 
 namespace Ui {
     class MoviePlayer;

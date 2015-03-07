@@ -22,8 +22,8 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     //Añadir iconos
     ui->labelMovie->setBackgroundRole(QPalette::Dark);
     ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
     ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-    ui->actionCapturarPantalla->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
     ui->actionReproducir->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     ui->actionPausar->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     ui->actionDetener->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
@@ -183,7 +183,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
 void MoviePlayer::on_actionCapturarVideo_triggered() {
 
-    QCamera *camera = new QCamera;
+    /*QCamera *camera = new QCamera;
     QCameraViewfinder *viewfinder = new QCameraViewfinder;
     camera->setViewfinder(viewfinder);
     viewfinder->setSizePolicy(QSizePolicy::Maximum,
@@ -191,13 +191,27 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
     setCentralWidget(viewfinder);
 
     camera->start();
-
+*/
 /*
     if (camera){
         delete camera;
         camera = NULL;
     }
 */
+/*
+    QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+    qDebug() << "nº devices: " << cameras.size();
+    foreach (const QCameraInfo &cameraInfo, cameras) {
+        qDebug() << "nombre: " << cameraInfo.deviceName();
+        qDebug() << "nombre: " << cameraInfo.description();
+    }
+*/
+
+    //camara = new Camara(this);
+    //camara->show();
+    Dispositivos dialogo;
+    dialogo.exec();
+
 }
 
 

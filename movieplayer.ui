@@ -179,8 +179,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionAbrir"/>
+   <addaction name="actionCapturarVideo"/>
    <addaction name="actionCerrar"/>
-   <addaction name="actionCapturarPantalla"/>
   </widget>
   <widget class="QToolBar" name="toolBarInferior">
    <property name="windowTitle">
@@ -496,7 +496,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Capturar pantalla</string>
+    <string>Tomar instantánea</string>
    </property>
   </action>
   <action name="actionAutoReproducir">
@@ -509,7 +509,7 @@
   </action>
   <action name="actionCapturarVideo">
    <property name="text">
-    <string>Capturar vídeo</string>
+    <string>Capturar</string>
    </property>
   </action>
  </widget>

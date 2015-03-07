@@ -7,9 +7,7 @@ Dispositivos::Dispositivos(QString current) :
         ui->setupUi(this);
 
         actual = current;
-        qDebug() << "actual: " << actual;
         dispositivos = QCameraInfo::availableCameras();
-
         ui->comboBox->setCurrentIndex(0);
         setDispositivos();
 }
@@ -27,7 +25,6 @@ void Dispositivos::setDispositivos() {
     if (dispositivos.size() > 0)
         foreach (const QCameraInfo &camara, dispositivos)
             ui->comboBox->addItem(camara.description());
-    ui->comboBox->addItem("Fantasma");
 
     //Seleccionar por defecto
     if (actual.isEmpty())
@@ -45,10 +42,6 @@ QString Dispositivos::getDispositivo() {
 
     int index = ui->comboBox->currentIndex();
 
-    if (index == 2)
-        index--;
-
-    qDebug() << "Dispositivo: " << ui->comboBox->currentText();
     if (index == 0)
         return "";
     else

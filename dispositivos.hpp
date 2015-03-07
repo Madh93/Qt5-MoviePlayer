@@ -5,7 +5,6 @@
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QCameraInfo>
-#include <QDebug>
 
 namespace Ui {
     class Dispositivos;

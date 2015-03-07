@@ -10,6 +10,7 @@
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QCameraInfo>
+#include <QStackedWidget>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -32,11 +33,13 @@ class MoviePlayer : public QMainWindow {
         Movie *movie;
         QCamera *camara;
         QCameraViewfinder *viewfinder;
+        QStackedWidget *stackedWidget;
         Slider *slider;
         QLabel *velocidad, *tiempo;
         QSettings preferencias;
 
         void limpiarMovie();
+        void limpiarCamara();
         void activarFuncionalidades(bool cond);
 
     private slots:

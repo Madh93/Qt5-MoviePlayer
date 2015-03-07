@@ -8,10 +8,16 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
     speed = 100;
     movie = new Movie;
     camara = NULL;
-    viewfinder = NULL;
+    viewfinder = new QCameraViewfinder;
+    viewfinder->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
     slider = new Slider;
     velocidad = new QLabel;
     tiempo = new QLabel;
+
+    stackedWidget = new QStackedWidget;
+    stackedWidget->addWidget(ui->label);
+    stackedWidget->addWidget(viewfinder);
+    this->setCentralWidget(stackedWidget);
 
     ui->toolBarInferior->addWidget(slider);
     ui->statusBar->addWidget(velocidad);
@@ -22,7 +28,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::Movi
         ui->actionAutoReproducir->setChecked(true);
 
     //Añadir iconos
-    ui->labelMovie->setBackgroundRole(QPalette::Dark);
+    ui->label->setBackgroundRole(QPalette::Dark);
     ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
     ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
     ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
@@ -92,6 +98,22 @@ void MoviePlayer::limpiarMovie() {
 }
 
 
+void MoviePlayer::limpiarCamara() {
+
+    if (camara) {
+        camara->stop();
+        delete camara;
+        camara = NULL;
+    }
+/*
+    if (viewfinder) {
+        delete viewfinder;
+        viewfinder = NULL;
+    }
+    */
+}
+
+
 void MoviePlayer::activarFuncionalidades(bool cond) {
 
     ui->actionCerrar->setEnabled(cond);
@@ -141,7 +163,7 @@ void MoviePlayer::updateFrameSlider() {
 void MoviePlayer::showFrame() {
 
     QPixmap pixmap = movie->currentPixmap();
-    ui->labelMovie->setPixmap(pixmap);
+    ui->label->setPixmap(pixmap);
 }
 
 
@@ -171,6 +193,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         //Borrar movie anterior
         limpiarMovie();
+        limpiarCamara();
 
         //Cargar movie
         movie->setFileName(ruta);
@@ -185,6 +208,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
             movie->start();
 
         //Ajustes
+        stackedWidget->setCurrentIndex(0);
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
@@ -195,18 +219,9 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
 void MoviePlayer::on_actionCapturarVideo_triggered() {
 
-    qDebug() << "ENTRA";
     // Borrar camara anterior
-    if (camara) {
-        delete camara;
-        camara = NULL;
-    }
-
-    qDebug() << "ENTRA2";
-    if (viewfinder) {
-        delete viewfinder;
-        viewfinder = NULL;
-    }
+    limpiarMovie();
+    limpiarCamara();
 
     // Abrir camara por defecto o guardad en preferencias
     QString ruta = preferencias.value("dispositivo").toString();
@@ -231,12 +246,12 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
     }
 
     // Si no hay camara (COMPROBAR)
-    if (camara == NULL)
+    if (camara == NULL) {
+        QMessageBox::critical(this, WINDOW_CRITICAL, "No se ha encontrado ningún dispositivo.");
         return;
+    }
 
-    viewfinder = new QCameraViewfinder;
-    viewfinder->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-    setCentralWidget(viewfinder);
+    stackedWidget->setCurrentIndex(1);
     camara->setViewfinder(viewfinder);
     camara->start();
 }
@@ -422,7 +437,7 @@ void MoviePlayer::on_actionCapturarPantalla_triggered() {
 
 void MoviePlayer::on_actionAjustarVentana_toggled(bool cond) {
 
-     ui->labelMovie->setScaledContents(cond);
+     ui->label->setScaledContents(cond);
 }
 
 

@@ -4,14 +4,15 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QLabel>
 #include <QProcess>
 #include <QPixmap>
 #include <QSettings>
+#include <QStackedWidget>
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QCameraInfo>
-#include <QStackedWidget>
-#include <QLabel>
+#include <QPainter>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -97,6 +98,11 @@ class MoviePlayer : public QMainWindow {
 
         explicit MoviePlayer(QWidget *parent = 0);
         ~MoviePlayer();
+
+    protected:
+
+        void paintEvent(QPaintEvent *e);
+
 };
 
 #endif // MOVIEPLAYER_HPP

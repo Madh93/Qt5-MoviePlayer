@@ -13,6 +13,7 @@
 #include <QCameraViewfinder>
 #include <QCameraInfo>
 #include <QPainter>
+#include <QTime>
 
 #include "base.hpp"
 #include "movie.hpp"
@@ -37,10 +38,9 @@ class MoviePlayer : public QMainWindow {
         QStackedWidget stackedWidget;
         Movie *movie;
         QCamera *camara;
-        QCameraViewfinder viewfinder;
         CaptureBuffer *captureBuffer;
         Slider slider;
-        QLabel velocidad, tiempo;
+        QLabel velocidad, tiempo, label;
         QSettings preferencias;
 
         void limpiarMovie();
@@ -49,10 +49,11 @@ class MoviePlayer : public QMainWindow {
 
     private slots:
 
-        void updateFrameSlider();
         void setFrameSlider(int frame);
+        void updateFrameSlider();
         void showFrame();
         void updateVelocidad();
+        void updateImagen(QImage imagen);
 
         //Archivo
         void on_actionAbrir_triggered();
@@ -95,6 +96,11 @@ class MoviePlayer : public QMainWindow {
         void on_actionAyuda_triggered();
         void on_actionAcercaDe_triggered();
         void on_actionAcercaDeQt_triggered();
+
+
+
+        void image1(QImage image);
+
 
     public:
 

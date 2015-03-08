@@ -12,17 +12,25 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
         camara = NULL;
 
         // Añadir widgets adicionales
-        viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-        stackedWidget.addWidget(ui->label);
+        //viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
+        //stackedWidget.addWidget(ui->label);
         //stackedWidget.addWidget(&viewfinder);
 
         // SUSTITUIR VIEWFINDER POR VIDEOSURFACE
         captureBuffer = new CaptureBuffer;
-        stackedWidget.addWidget(captureBuffer->getLabel());
+        //stackedWidget.addWidget(&label);
+        //label.setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
+        //label.setScaledContents(true);
         //////////////////////////////////////////////
 
 
-        this->setCentralWidget(&stackedWidget);
+
+
+
+        /////////////////////////
+
+
+        //this->setCentralWidget(&stackedWidget);
         ui->toolBarInferior->addWidget(&slider);
         ui->statusBar->addWidget(&velocidad);
         ui->statusBar->addPermanentWidget(&tiempo);
@@ -88,6 +96,7 @@ void MoviePlayer::limpiarMovie() {
 void MoviePlayer::limpiarCamara() {
 
     if (camara) {
+        disconnect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
         camara->stop();
         delete camara;
         camara = NULL;
@@ -155,6 +164,27 @@ void MoviePlayer::updateVelocidad() {
 }
 
 
+void MoviePlayer::updateImagen(QImage imagen){
+
+    //Modificar (pintar) la imagen para imprimirla en el label
+    QTime time;
+    QTime currenTime= time.currentTime();
+    QString stringTime=currenTime.toString();
+
+    QPixmap pixmap(QPixmap::fromImage(imagen));
+
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::white);
+    painter.setFont(QFont("Arial", 25));
+    painter.drawText(0, 0,pixmap.width(), pixmap.height(), Qt::AlignBottom, stringTime,0);
+
+    //qDebug() << pixmap.size();
+    //ui->label->resize(image.size());
+   // pixmap.scaled(ui->label->size());
+    ui->label->setPixmap(pixmap);
+}
+
+
 /***************************
  ARCHIVO
 **************************/
@@ -190,7 +220,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
             movie->start();
 
         //Ajustes
-        stackedWidget.setCurrentIndex(0);
+        //stackedWidget.setCurrentIndex(0);
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
@@ -239,9 +269,9 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
     }
 
     ui->actionCerrar->setEnabled(true);
-    stackedWidget.setCurrentIndex(1);
-    //camara->setViewfinder(&viewfinder);
+    //stackedWidget.setCurrentIndex(1);
     camara->setViewfinder(captureBuffer);
+    connect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
     camara->start();
 }
 

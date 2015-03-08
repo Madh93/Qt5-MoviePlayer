@@ -2,29 +2,25 @@
 #define CAPTUREBUFFER_HPP
 
 #include <QAbstractVideoSurface>
-#include <QLabel>
+#include <QDebug>
 
 class CaptureBuffer : public QAbstractVideoSurface {
 
     Q_OBJECT
 
-    private:
+    signals:
 
-        QWidget *widget;
-        QLabel *mylabel;
+        void imagenChanged(QImage);
 
     public:
 
-        CaptureBuffer(QWidget *widget = 0, QObject *parent = 0);
+        CaptureBuffer(QObject *parent = 0);
         ~CaptureBuffer();
 
         bool present(const QVideoFrame &frame);
         QList<QVideoFrame::PixelFormat> supportedPixelFormats(
                 QAbstractVideoBuffer::HandleType handleType =
                 QAbstractVideoBuffer::NoHandle) const;
-
-        QWidget * getWidget() { return widget; }
-        QLabel * getLabel() { return mylabel; }
 };
 
 #endif // CAPTUREBUFFER_HPP

@@ -467,10 +467,10 @@ void MoviePlayer::on_actionAcercaDe_triggered() { Acerca w; w.exec(); }
 
 void MoviePlayer::on_actionAcercaDeQt_triggered() { qApp->aboutQt(); }
 
-
+/*
 void MoviePlayer::paintEvent(QPaintEvent *e) {
 
-    /*
+
     QPainter painter(this);
     //painter.setPen(Qt::blue);
     //painter.setFont(QFont("Arial", 30));
@@ -504,5 +504,6 @@ void MoviePlayer::paintEvent(QPaintEvent *e) {
      painter.setPen(QPen(Qt::black, 3, Qt::DashDotLine, Qt::RoundCap));
      painter.setBrush(QBrush(Qt::green, Qt::SolidPattern));
      painter.drawEllipse(200, 80, 400, 240);
-     */
+
 }
+*/

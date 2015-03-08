@@ -16,6 +16,7 @@
 
 #include "base.hpp"
 #include "movie.hpp"
+#include "capturebuffer.hpp"
 #include "slider.hpp"
 #include "dispositivos.hpp"
 #include "acerca.hpp"
@@ -101,7 +102,7 @@ class MoviePlayer : public QMainWindow {
 
     protected:
 
-        void paintEvent(QPaintEvent *e);
+        //void paintEvent(QPaintEvent *e);
 
 };
 

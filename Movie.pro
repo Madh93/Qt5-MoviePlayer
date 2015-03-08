@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     movie.cpp \
     slider.cpp \
     dispositivos.cpp \
-    acerca.cpp
+    acerca.cpp \
+    capturebuffer.cpp
 
 HEADERS  += movieplayer.hpp \
     base.hpp \
     movie.hpp \
     slider.hpp \
     dispositivos.hpp \
-    acerca.hpp
+    acerca.hpp \
+    capturebuffer.hpp
 
 FORMS    += movieplayer.ui \
     dispositivos.ui \

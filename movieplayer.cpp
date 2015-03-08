@@ -94,6 +94,7 @@ void MoviePlayer::limpiarMovie() {
     speed = 100;
     slider.setValue(0);
     tiempo.setText("");
+    velocidad.setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
     crearLabel();

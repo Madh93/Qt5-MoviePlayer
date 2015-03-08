@@ -37,10 +37,12 @@ class MoviePlayer : public QMainWindow {
         Movie *movie;
         QCamera *camara;
         CaptureBuffer *captureBuffer;
+        QLabel *label;
+        QLabel velocidad, tiempo;
         Slider slider;
-        QLabel velocidad, tiempo, label;
         QSettings preferencias;
 
+        void crearLabel();
         void limpiarMovie();
         void limpiarCamara();
         void activarFuncionalidades(bool cond);
@@ -95,11 +97,6 @@ class MoviePlayer : public QMainWindow {
         void on_actionAyuda_triggered();
         void on_actionAcercaDe_triggered();
         void on_actionAcercaDeQt_triggered();
-
-
-
-        void image1(QImage image);
-
 
     public:
 

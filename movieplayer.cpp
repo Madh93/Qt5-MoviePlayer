@@ -7,34 +7,14 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
     speed(100),
     movie(NULL),
     camara(NULL),
-    captureBuffer(NULL) {
+    captureBuffer(NULL),
+    label(NULL) {
 
         ui->setupUi(this);
 
-        //speed = 100;
-        //movie = NULL;
-        //camara = NULL;
+        crearLabel();
 
-        // Añadir widgets adicionales
-        //viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-        //stackedWidget.addWidget(ui->label);
-        //stackedWidget.addWidget(&viewfinder);
-
-        // SUSTITUIR VIEWFINDER POR VIDEOSURFACE
-        //captureBuffer = new CaptureBuffer;
-        //stackedWidget.addWidget(&label);
-        //label.setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
-        //label.setScaledContents(true);
-        //////////////////////////////////////////////
-
-
-
-
-
-        /////////////////////////
-
-
-        //this->setCentralWidget(&stackedWidget);
+        // Añadir widgets
         ui->toolBarInferior->addWidget(&slider);
         ui->statusBar->addWidget(&velocidad);
         ui->statusBar->addPermanentWidget(&tiempo);
@@ -44,7 +24,6 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
             ui->actionAutoReproducir->setChecked(true);
 
         //Añadir iconos
-        ui->label->setBackgroundRole(QPalette::Dark);
         ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
         ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
         ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
@@ -83,6 +62,23 @@ MoviePlayer::~MoviePlayer() {
  MÉTODOS PRIVADOS
 **************************/
 
+void MoviePlayer::crearLabel() {
+
+    if (label) {
+        delete label;
+        label = NULL;
+    }
+
+    label = new QLabel;
+    label->setAutoFillBackground(true);
+    label->setAlignment(Qt::AlignCenter);
+    QPalette paleta = this->palette();
+    paleta.setColor(QPalette::Background, QColor(90,90,90));
+    label->setPalette(paleta);
+    ui->verticalLayoutPrincipal->addWidget(label);
+}
+
+
 void MoviePlayer::limpiarMovie() {
 
     if (movie) {
@@ -99,14 +95,7 @@ void MoviePlayer::limpiarMovie() {
     tiempo.setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
-    //QPalette palette = this->palette();
-    //palette.setColor(QPalette::Background, Qt::black);
-    //ui->label->setPalette(palette);
-    //ui->label->update();
-    //delete ui->label;
-    //ui->label = new QLabel;
-    //setCentralWidget(ui->label);
-//    ui->label->de
+    crearLabel();
 }
 
 
@@ -182,7 +171,7 @@ void MoviePlayer::updateFrameSlider() {
 void MoviePlayer::showFrame() {
 
     QPixmap pixmap = movie->currentPixmap();
-    ui->label->setPixmap(pixmap);
+    label->setPixmap(pixmap);
 }
 
 
@@ -200,10 +189,7 @@ void MoviePlayer::updateImagen(QImage imagen){
     painter.setFont(QFont("Arial", 25));
     painter.drawText(0, 0,pixmap.width(), pixmap.height(), Qt::AlignBottom, stringTime,0);
 
-    //qDebug() << pixmap.size();
-    //ui->label->resize(image.size());
-   // pixmap.scaled(ui->label->size());
-    ui->label->setPixmap(pixmap);
+    label->setPixmap(pixmap);
 }
 
 
@@ -473,7 +459,7 @@ void MoviePlayer::on_actionCapturarPantalla_triggered() {
 
 void MoviePlayer::on_actionAjustarVentana_toggled(bool cond) {
 
-     ui->label->setScaledContents(cond);
+     label->setScaledContents(cond);
 }
 
 

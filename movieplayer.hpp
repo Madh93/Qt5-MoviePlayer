@@ -38,6 +38,7 @@ class MoviePlayer : public QMainWindow {
         Movie *movie;
         QCamera *camara;
         QCameraViewfinder viewfinder;
+        CaptureBuffer *captureBuffer;
         Slider slider;
         QLabel velocidad, tiempo;
         QSettings preferencias;

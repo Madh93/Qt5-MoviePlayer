@@ -11,9 +11,17 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
         movie = NULL;
         camara = NULL;
 
+        // Añadir widgets adicionales
         viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
         stackedWidget.addWidget(ui->label);
-        stackedWidget.addWidget(&viewfinder);
+        //stackedWidget.addWidget(&viewfinder);
+
+        // SUSTITUIR VIEWFINDER POR VIDEOSURFACE
+        captureBuffer = new CaptureBuffer;
+        stackedWidget.addWidget(captureBuffer->getLabel());
+        //////////////////////////////////////////////
+
+
         this->setCentralWidget(&stackedWidget);
         ui->toolBarInferior->addWidget(&slider);
         ui->statusBar->addWidget(&velocidad);
@@ -232,7 +240,8 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
 
     ui->actionCerrar->setEnabled(true);
     stackedWidget.setCurrentIndex(1);
-    camara->setViewfinder(&viewfinder);
+    //camara->setViewfinder(&viewfinder);
+    camara->setViewfinder(captureBuffer);
     camara->start();
 }
 

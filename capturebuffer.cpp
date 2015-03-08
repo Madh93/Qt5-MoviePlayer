@@ -29,9 +29,6 @@ QList<QVideoFrame::PixelFormat> CaptureBuffer::supportedPixelFormats(
 
 bool CaptureBuffer::present(const QVideoFrame &frame) {
 
-    // Presents a video frame.
-    // Returns true if the frame was presented, and false if an error occurred.
-
     QList<QVideoFrame::PixelFormat> formatos = supportedPixelFormats();
 
     if (!formatos.contains(frame.pixelFormat()))

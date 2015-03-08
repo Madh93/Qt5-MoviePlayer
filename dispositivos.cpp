@@ -22,13 +22,13 @@ Dispositivos::~Dispositivos() {
 
 void Dispositivos::setDispositivos() {
 
-    //Añadir dispositivos
+    // Añadir dispositivos
     ui->comboBox->addItem("Predeterminado");
     if (dispositivos.size() > 0)
         foreach (const QCameraInfo &camara, dispositivos)
             ui->comboBox->addItem(camara.description());
 
-    //Seleccionar por defecto
+    // Seleccionar por defecto
     if (actual.isEmpty())
         ui->comboBox->setCurrentIndex(0);
     else

@@ -19,11 +19,11 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
         ui->statusBar->addWidget(&velocidad);
         ui->statusBar->addPermanentWidget(&tiempo);
 
-        //Preferencias
+        // Preferencias
         if (preferencias.value("auto-reproduccion").toBool())
             ui->actionAutoReproducir->setChecked(true);
 
-        //Añadir iconos
+        // Añadir iconos
         ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
         ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
         ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
@@ -38,6 +38,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
 MoviePlayer::~MoviePlayer() {
 
     delete ui;
+    delete label;
 
     if (movie) {
         delete movie;
@@ -154,14 +155,14 @@ void MoviePlayer::setFrameSlider(int frame) { movie->jumpToFrame(frame); }
 
 void MoviePlayer::updateFrameSlider() {
 
-    //Comprobar que no es una imagen estática (MJPEG no admite esta propiedad)
+    // Comprobar que no es una imagen estática (MJPEG no admite esta propiedad)
     if (movie->currentFrameNumber() >= 0) {
         if (movie->frameCount() > 0)
             slider.setMaximum(movie->frameCount() - 1);
         slider.setValue(movie->currentFrameNumber());
     }
 
-    //Actualizar tiempo
+    // Actualizar tiempo
     int total = movie->frameCount() * movie->nextFrameDelay() / 1000;
     int actual = movie->currentFrameNumber() * movie->nextFrameDelay() / 1000;
     tiempo.setText(QString::number(actual) + " / " + QString::number(total)+ "s");
@@ -177,7 +178,7 @@ void MoviePlayer::showFrame() {
 
 void MoviePlayer::updateImagen(QImage imagen){
 
-    //Modificar (pintar) la imagen para imprimirla en el label
+    // Modificar (pintar) la imagen para imprimirla en el label
     QTime time;
     QTime currenTime= time.currentTime();
     QString stringTime=currenTime.toString();
@@ -210,11 +211,11 @@ void MoviePlayer::on_actionAbrir_triggered() {
             return;
         }
 
-        //Borrar movie anterior
+        // Borrar movie anterior
         limpiarMovie();
         limpiarCamara();
 
-        //Cargar movie
+        // Cargar movie
         movie = new Movie;
         movie->setFileName(ruta);
 
@@ -223,17 +224,17 @@ void MoviePlayer::on_actionAbrir_triggered() {
             return;
         }
 
-        //Auto-reproducir
+        // Auto-reproducir
         if (ui->actionAutoReproducir->isChecked())
             movie->start();
 
-        //Ajustes
+        // Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
 
-        //Conectar movie, slider y label
+        // Conectar movie, slider y label
         connect(&slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
         connect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
         connect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
@@ -306,7 +307,7 @@ void MoviePlayer::on_actionAbrirCon_triggered() {
 
     rutaAplicacion = "/usr/bin/" + aplicacion;
 
-    //Comprobar si existe la aplicación y ejecutar
+    // Comprobar si existe la aplicación y ejecutar
     if (okButton && !aplicacion.isEmpty()){
 
         if (QFile::exists(rutaAplicacion) || QFile::exists(aplicacion)) {
@@ -347,7 +348,7 @@ void MoviePlayer::on_actionRenombrar_triggered() {
 
         nuevaRuta = movie->directory() + nuevoNombre + movie->extension();
 
-        //Si no existe un archivo con el mismo nombre sobreescribir
+        // Si no existe un archivo con el mismo nombre sobreescribir
         if (!QFile::exists(nuevaRuta)) {
 
             QFile::rename(movie->path(),nuevaRuta);
@@ -359,7 +360,7 @@ void MoviePlayer::on_actionRenombrar_triggered() {
 
             AvisoExistente aviso;
 
-            //Si se desea sobreescribir un archivo con el mismo nombre
+            // Si se desea sobreescribir un archivo con el mismo nombre
             if (aviso.exec() == QMessageBox::Save) {
 
                 QFile fileNuevo(nuevaRuta);
@@ -382,7 +383,7 @@ void MoviePlayer::on_actionEliminar_triggered() {
 
     AvisoEliminar aviso;
 
-    //Eliminar del disco si se da el visto bueno
+    // Eliminar del disco si se da el visto bueno
     if (aviso.exec() == QMessageBox::Save) {
 
         QFile::remove(movie->path());
@@ -439,7 +440,7 @@ void MoviePlayer::on_actionCapturarPantalla_triggered() {
 
     QPixmap captura = movie->currentPixmap();
 
-    //Seleccionar ruta nueva
+    // Seleccionar ruta nueva
     QString ruta = QFileDialog::getSaveFileName(this, tr("Guardar captura"), QString(),
             tr("Todos los archivos (*);;Imagen BPM (*.bpm);;Imagen GIF (*.gif);;Imagen JPG (*.jpg);;Imagen JPEG (*.jpeg);;Imagen PNG (*.png);;Imagen PPM (*.ppm);;Imagen XBM (*.xbm);;Imagen XPM (*.xpm);;"));
 
@@ -451,7 +452,7 @@ void MoviePlayer::on_actionCapturarPantalla_triggered() {
             return;
         }
 
-        //Guardar captura en la ruta indicada
+        // Guardar captura en la ruta indicada
         captura.save(ruta,0,60);
     }
 }
@@ -514,44 +515,3 @@ void MoviePlayer::on_actionAyuda_triggered() {
 void MoviePlayer::on_actionAcercaDe_triggered() { Acerca w; w.exec(); }
 
 void MoviePlayer::on_actionAcercaDeQt_triggered() { qApp->aboutQt(); }
-
-/*
-void MoviePlayer::paintEvent(QPaintEvent *e) {
-
-
-    QPainter painter(this);
-    //painter.setPen(Qt::blue);
-    //painter.setFont(QFont("Arial", 30));
-    //painter.drawText(rect(), Qt::AlignCenter, "Qt");
-
-    //a simple line
-    painter.drawLine(1,1,100,100);
-
-    //create a black pen that has solid line
-    //and the width is 2.
-    QPen myPen(Qt::black, 2, Qt::SolidLine);
-    painter.setPen(myPen);
-    painter.drawLine(100,100,100,1);
-
-    //draw a point
-    myPen.setColor(Qt::red);
-    painter.drawPoint(110,110);
-
-    //draw a polygon
-    QPolygon polygon;
-    polygon << QPoint(130, 140) << QPoint(180, 170)
-             << QPoint(180, 140) << QPoint(220, 110)
-             << QPoint(140, 100);
-     painter.drawPolygon(polygon);
-
-     //draw an ellipse
-     //The setRenderHint() call enables antialiasing, telling QPainter to use different
-     //color intensities on the edges to reduce the visual distortion that normally
-     //occurs when the edges of a shape are converted into pixels
-     painter.setRenderHint(QPainter::Antialiasing, true);
-     painter.setPen(QPen(Qt::black, 3, Qt::DashDotLine, Qt::RoundCap));
-     painter.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-     painter.drawEllipse(200, 80, 400, 240);
-
-}
-*/

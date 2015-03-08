@@ -8,7 +8,6 @@
 #include <QProcess>
 #include <QPixmap>
 #include <QSettings>
-#include <QStackedWidget>
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QCameraInfo>
@@ -35,7 +34,6 @@ class MoviePlayer : public QMainWindow {
 
         Ui::MoviePlayer *ui;
         int speed;
-        QStackedWidget stackedWidget;
         Movie *movie;
         QCamera *camara;
         CaptureBuffer *captureBuffer;
@@ -46,13 +44,14 @@ class MoviePlayer : public QMainWindow {
         void limpiarMovie();
         void limpiarCamara();
         void activarFuncionalidades(bool cond);
+        void updateVelocidad();
+
 
     private slots:
 
         void setFrameSlider(int frame);
         void updateFrameSlider();
         void showFrame();
-        void updateVelocidad();
         void updateImagen(QImage imagen);
 
         //Archivo

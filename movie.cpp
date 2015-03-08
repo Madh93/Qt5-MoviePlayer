@@ -1,10 +1,8 @@
 #include "movie.hpp"
 
 Movie::Movie(QObject *parent) :
-    QMovie(parent) {
-
-        info = NULL;
-}
+    QMovie(parent),
+    info(NULL) { }
 
 
 Movie::~Movie() {

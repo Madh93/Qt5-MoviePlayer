@@ -8,7 +8,8 @@ Acerca::Acerca(QWidget *parent) :
         ui->setupUi(this);
 }
 
-Acerca::~Acerca()
-{
+
+Acerca::~Acerca() {
+
     delete ui;
 }

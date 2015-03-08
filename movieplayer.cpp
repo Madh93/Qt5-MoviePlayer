@@ -3,13 +3,17 @@
 
 MoviePlayer::MoviePlayer(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MoviePlayer) {
+    ui(new Ui::MoviePlayer),
+    speed(100),
+    movie(NULL),
+    camara(NULL),
+    captureBuffer(NULL) {
 
         ui->setupUi(this);
 
-        speed = 100;
-        movie = NULL;
-        camara = NULL;
+        //speed = 100;
+        //movie = NULL;
+        //camara = NULL;
 
         // Añadir widgets adicionales
         //viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
@@ -17,7 +21,7 @@ MoviePlayer::MoviePlayer(QWidget *parent) :
         //stackedWidget.addWidget(&viewfinder);
 
         // SUSTITUIR VIEWFINDER POR VIDEOSURFACE
-        captureBuffer = new CaptureBuffer;
+        //captureBuffer = new CaptureBuffer;
         //stackedWidget.addWidget(&label);
         //label.setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
         //label.setScaledContents(true);
@@ -66,6 +70,11 @@ MoviePlayer::~MoviePlayer() {
         camara = NULL;
     }
 
+    if (captureBuffer) {
+        delete captureBuffer;
+        captureBuffer = NULL;
+    }
+
     speed = 0;
 }
 
@@ -90,6 +99,14 @@ void MoviePlayer::limpiarMovie() {
     tiempo.setText("");
     this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
+    //QPalette palette = this->palette();
+    //palette.setColor(QPalette::Background, Qt::black);
+    //ui->label->setPalette(palette);
+    //ui->label->update();
+    //delete ui->label;
+    //ui->label = new QLabel;
+    //setCentralWidget(ui->label);
+//    ui->label->de
 }
 
 
@@ -100,6 +117,11 @@ void MoviePlayer::limpiarCamara() {
         camara->stop();
         delete camara;
         camara = NULL;
+    }
+
+    if (captureBuffer) {
+        delete captureBuffer;
+        captureBuffer = NULL;
     }
 }
 
@@ -124,6 +146,13 @@ void MoviePlayer::activarFuncionalidades(bool cond) {
     ui->actionAjustarVentana->setEnabled(cond);
         ui->actionAjustarVentana->setChecked(false);
     slider.setEnabled(cond);
+}
+
+
+void MoviePlayer::updateVelocidad() {
+
+    movie->setSpeed(speed);
+    velocidad.setText("Velocidad: " + QString::number(speed) + "%");
 }
 
 
@@ -154,13 +183,6 @@ void MoviePlayer::showFrame() {
 
     QPixmap pixmap = movie->currentPixmap();
     ui->label->setPixmap(pixmap);
-}
-
-
-void MoviePlayer::updateVelocidad() {
-
-    movie->setSpeed(speed);
-    velocidad.setText("Velocidad: " + QString::number(speed) + "%");
 }
 
 
@@ -220,7 +242,6 @@ void MoviePlayer::on_actionAbrir_triggered() {
             movie->start();
 
         //Ajustes
-        //stackedWidget.setCurrentIndex(0);
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
         updateVelocidad();
         activarFuncionalidades(true);
@@ -268,11 +289,13 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
         return;
     }
 
-    ui->actionCerrar->setEnabled(true);
-    //stackedWidget.setCurrentIndex(1);
+    captureBuffer = new CaptureBuffer;
     camara->setViewfinder(captureBuffer);
     connect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
     camara->start();
+
+    // Ajustes
+    ui->actionCerrar->setEnabled(true);
 }
 
 

@@ -3,11 +3,11 @@
 
 Dispositivos::Dispositivos(QString current) :
     QDialog(0),
-    ui(new Ui::Dispositivos) {
+    ui(new Ui::Dispositivos),
+    actual(current) {
 
         ui->setupUi(this);
 
-        actual = current;
         dispositivos = QCameraInfo::availableCameras();
         ui->comboBox->setCurrentIndex(0);
         setDispositivos();
@@ -15,6 +15,7 @@ Dispositivos::Dispositivos(QString current) :
 
 
 Dispositivos::~Dispositivos() {
+
     delete ui;
 }
 

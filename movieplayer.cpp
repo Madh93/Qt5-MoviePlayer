@@ -1,36 +1,38 @@
 #include "movieplayer.hpp"
 #include "ui_movieplayer.h"
 
-MoviePlayer::MoviePlayer(QWidget *parent) : QMainWindow(parent), ui(new Ui::MoviePlayer) {
+MoviePlayer::MoviePlayer(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MoviePlayer) {
 
-    ui->setupUi(this);
+        ui->setupUi(this);
 
-    speed = 100;
-    movie = NULL;
-    camara = NULL;
+        speed = 100;
+        movie = NULL;
+        camara = NULL;
 
-    viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
-    stackedWidget.addWidget(ui->label);
-    stackedWidget.addWidget(&viewfinder);
-    this->setCentralWidget(&stackedWidget);
-    ui->toolBarInferior->addWidget(&slider);
-    ui->statusBar->addWidget(&velocidad);
-    ui->statusBar->addPermanentWidget(&tiempo);
+        viewfinder.setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Maximum);
+        stackedWidget.addWidget(ui->label);
+        stackedWidget.addWidget(&viewfinder);
+        this->setCentralWidget(&stackedWidget);
+        ui->toolBarInferior->addWidget(&slider);
+        ui->statusBar->addWidget(&velocidad);
+        ui->statusBar->addPermanentWidget(&tiempo);
 
-    //Preferencias
-    if (preferencias.value("auto-reproduccion").toBool())
-        ui->actionAutoReproducir->setChecked(true);
+        //Preferencias
+        if (preferencias.value("auto-reproduccion").toBool())
+            ui->actionAutoReproducir->setChecked(true);
 
-    //Añadir iconos
-    ui->label->setBackgroundRole(QPalette::Dark);
-    ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
-    ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
-    ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-    ui->actionReproducir->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
-    ui->actionPausar->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-    ui->actionDetener->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-    ui->actionRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
-    ui->actionAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
+        //Añadir iconos
+        ui->label->setBackgroundRole(QPalette::Dark);
+        ui->actionAbrir->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+        ui->actionCapturarVideo->setIcon(style()->standardIcon(QStyle::SP_DesktopIcon));
+        ui->actionCerrar->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+        ui->actionReproducir->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+        ui->actionPausar->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+        ui->actionDetener->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+        ui->actionRetroceder->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
+        ui->actionAvanzar->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
 }
 
 

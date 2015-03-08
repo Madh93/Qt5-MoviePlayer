@@ -3,9 +3,9 @@
 
 Acerca::Acerca(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Acerca)
-{
-    ui->setupUi(this);
+    ui(new Ui::Acerca) {
+
+        ui->setupUi(this);
 }
 
 Acerca::~Acerca()

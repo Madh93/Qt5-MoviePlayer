@@ -4,6 +4,7 @@
 Dispositivos::Dispositivos(QString current) :
     QDialog(0),
     ui(new Ui::Dispositivos) {
+
         ui->setupUi(this);
 
         actual = current;

@@ -89,16 +89,18 @@ void MoviePlayer::limpiarMovie() {
         disconnect(&slider, SIGNAL(valueChanged(int)), this, SLOT(setFrameSlider(int)));
         disconnect(movie, SIGNAL(frameChanged(int)), this, SLOT(updateFrameSlider()));
         disconnect(movie, SIGNAL(updated(const QRect&)), this, SLOT(showFrame()));
+
         movie->stop();
         delete movie;
         movie = NULL;
+
+        speed = 100;
+        slider.setValue(0);
+        tiempo.setText("");
+        velocidad.setText("");
+        this->setWindowTitle(WINDOW_TITLE);
     }
 
-    speed = 100;
-    slider.setValue(0);
-    tiempo.setText("");
-    velocidad.setText("");
-    this->setWindowTitle(WINDOW_TITLE);
     activarFuncionalidades(false);
     crearLabel();
 }
@@ -214,8 +216,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
         }
 
         // Borrar movie anterior
-        limpiarMovie();
-        limpiarCamara();
+        on_actionCerrar_triggered();
 
         // Cargar movie
         movie = new Movie;
@@ -248,8 +249,8 @@ void MoviePlayer::on_actionAbrir_triggered() {
 void MoviePlayer::on_actionCapturarVideo_triggered() {
 
     // Borrar camara anterior
-    limpiarMovie();
-    limpiarCamara();
+    on_actionCerrar_triggered();
+
 
     // Abrir camara por defecto o guardada en preferencias
     QString ruta = preferencias.value("dispositivo").toString();
@@ -489,6 +490,7 @@ void MoviePlayer::on_actionDispositivos_triggered() {
 
     if (w.exec() == QDialog::Accepted) {
         preferencias.setValue("dispositivo", w.getDispositivo());
+        on_actionCapturarVideo_triggered();
     }
 }
 

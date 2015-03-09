@@ -188,8 +188,8 @@ void MoviePlayer::updateImagen(QImage imagen){
     QPainter painter(&pixmap);
     painter.setPen(Qt::green);
     painter.setFont(QFont("",20));
-    painter.drawText(pixmap.rect(),
-                     Qt::AlignRight,
+    painter.drawText(pixmap.width()-120,
+                     pixmap.height()-20,
                      QTime().currentTime().toString());
 
     label->setPixmap(pixmap);

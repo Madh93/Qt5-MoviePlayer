@@ -173,14 +173,14 @@ void MoviePlayer::updateFrameSlider() {
 
 void MoviePlayer::showFrame() {
 
-    QPixmap pixmap = movie->currentPixmap();
+    pixmap = movie->currentPixmap();
     label->setPixmap(pixmap);
 }
 
 
 void MoviePlayer::updateImagen(QImage imagen){
 
-    QPixmap pixmap(QPixmap::fromImage(imagen.scaled(label->size())));
+    pixmap = QPixmap(QPixmap::fromImage(imagen.scaled(label->size())));
 
     // Mostrar hora
     QPainter painter(&pixmap);
@@ -283,6 +283,7 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
 
     // Ajustes
     ui->actionCerrar->setEnabled(true);
+    ui->actionCapturarPantalla->setEnabled(true);
     connect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
 }
 
@@ -439,8 +440,6 @@ void MoviePlayer::on_actionMitad_triggered() { speed/=2; updateVelocidad(); }
 
 void MoviePlayer::on_actionCapturarPantalla_triggered() {
 
-    QPixmap captura = movie->currentPixmap();
-
     // Seleccionar ruta nueva
     QString ruta = QFileDialog::getSaveFileName(this, tr("Guardar captura"), QString(),
             tr("Todos los archivos (*);;Imagen BPM (*.bpm);;Imagen GIF (*.gif);;Imagen JPG (*.jpg);;Imagen JPEG (*.jpeg);;Imagen PNG (*.png);;Imagen PPM (*.ppm);;Imagen XBM (*.xbm);;Imagen XPM (*.xpm);;"));
@@ -454,7 +453,7 @@ void MoviePlayer::on_actionCapturarPantalla_triggered() {
         }
 
         // Guardar captura en la ruta indicada
-        captura.save(ruta,0,60);
+        pixmap.save(ruta,0,60);
     }
 }
 

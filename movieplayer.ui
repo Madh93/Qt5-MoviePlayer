@@ -482,6 +482,9 @@
    <property name="text">
     <string>Tomar instantánea</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionAutoReproducir">
    <property name="checkable">
@@ -494,6 +497,9 @@
   <action name="actionCapturarVideo">
    <property name="text">
     <string>Capturar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
   <action name="actionDispositivos">

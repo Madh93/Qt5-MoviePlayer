@@ -40,6 +40,7 @@ class MoviePlayer : public QMainWindow {
         QLabel velocidad, tiempo;
         Slider slider;
         QSettings preferencias;
+        QPixmap pixmap;
 
         void crearLabel();
         void limpiarMovie();

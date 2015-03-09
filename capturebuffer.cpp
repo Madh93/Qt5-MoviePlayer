@@ -45,7 +45,6 @@ bool CaptureBuffer::present(const QVideoFrame &frame) {
                                f.height(),
                                f.bytesPerLine(),
                                QVideoFrame::imageFormatFromPixelFormat(f.pixelFormat()));
-        //imagen.copy();
         // Bloquear buffer
         f.unmap();
         // Emitir señal

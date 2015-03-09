@@ -73,6 +73,7 @@ void MoviePlayer::crearLabel() {
     label = new QLabel;
     label->setAutoFillBackground(true);
     label->setAlignment(Qt::AlignCenter);
+    label->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
     QPalette paleta = this->palette();
     paleta.setColor(QPalette::Background, QColor(90,90,90));
     label->setPalette(paleta);
@@ -183,6 +184,8 @@ void MoviePlayer::updateImagen(QImage imagen){
     QTime time;
     QTime currenTime= time.currentTime();
     QString stringTime=currenTime.toString();
+
+    imagen = imagen.scaled(label->size());
 
     QPixmap pixmap(QPixmap::fromImage(imagen));
 

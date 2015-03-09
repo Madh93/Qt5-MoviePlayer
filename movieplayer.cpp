@@ -232,6 +232,7 @@ void MoviePlayer::on_actionAbrir_triggered() {
 
         // Ajustes
         this->setWindowTitle(movie->name() + WINDOW_TITLE_OPENED);
+        label->setText("");
         updateVelocidad();
         activarFuncionalidades(true);
         on_actionActivarCache_toggled(movie->size() <= MAX_SIZE_CACHED);
@@ -250,7 +251,7 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
     limpiarMovie();
     limpiarCamara();
 
-    // Abrir camara por defecto o guardad en preferencias
+    // Abrir camara por defecto o guardada en preferencias
     QString ruta = preferencias.value("dispositivo").toString();
 
     if (ruta.isEmpty()) {
@@ -265,16 +266,17 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
                     camara = new QCamera(disp);
                     break;
                 }
+
         // Si la camara ya no existe
-        if (camara == NULL) {
+        if (!camara) {
             camara = new QCamera;
             preferencias.setValue("dispositivo", "");
         }
     }
 
-    // Si no hay camara (COMPROBAR)
-    if (camara == NULL) {
-        QMessageBox::critical(this, WINDOW_CRITICAL, "No se ha encontrado ningún dispositivo.");
+    // Si no hay camara
+    if (!camara->isAvailable()) {
+        QMessageBox::critical(this, WINDOW_CRITICAL, "No existe ningún dispositivo o está ocupado.");
         return;
     }
 

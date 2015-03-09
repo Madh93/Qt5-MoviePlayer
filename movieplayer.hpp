@@ -6,7 +6,6 @@
 #include <QInputDialog>
 #include <QLabel>
 #include <QProcess>
-#include <QPixmap>
 #include <QSettings>
 #include <QCamera>
 #include <QCameraViewfinder>

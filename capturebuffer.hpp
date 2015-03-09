@@ -2,7 +2,6 @@
 #define CAPTUREBUFFER_HPP
 
 #include <QAbstractVideoSurface>
-#include <QDebug>
 
 class CaptureBuffer : public QAbstractVideoSurface {
 

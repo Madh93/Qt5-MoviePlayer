@@ -180,19 +180,15 @@ void MoviePlayer::showFrame() {
 
 void MoviePlayer::updateImagen(QImage imagen){
 
-    // Modificar (pintar) la imagen para imprimirla en el label
-    QTime time;
-    QTime currenTime= time.currentTime();
-    QString stringTime=currenTime.toString();
+    QPixmap pixmap(QPixmap::fromImage(imagen.scaled(label->size())));
 
-    imagen = imagen.scaled(label->size());
-
-    QPixmap pixmap(QPixmap::fromImage(imagen));
-
+    // Mostrar hora
     QPainter painter(&pixmap);
-    painter.setPen(Qt::white);
-    painter.setFont(QFont("Arial", 25));
-    painter.drawText(0, 0,pixmap.width(), pixmap.height(), Qt::AlignBottom, stringTime,0);
+    painter.setPen(Qt::green);
+    painter.setFont(QFont("",20));
+    painter.drawText(pixmap.rect(),
+                     Qt::AlignRight,
+                     QTime().currentTime().toString());
 
     label->setPixmap(pixmap);
 }
@@ -280,13 +276,14 @@ void MoviePlayer::on_actionCapturarVideo_triggered() {
         return;
     }
 
+    // Iniciar captura
     captureBuffer = new CaptureBuffer;
     camara->setViewfinder(captureBuffer);
-    connect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
     camara->start();
 
     // Ajustes
     ui->actionCerrar->setEnabled(true);
+    connect(captureBuffer, SIGNAL(imagenChanged(QImage)), this, SLOT(updateImagen(QImage)));
 }
 
 

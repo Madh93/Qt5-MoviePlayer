@@ -71,11 +71,13 @@ void MoviePlayer::crearLabel() {
     }
 
     label = new QLabel;
+    label->setText("Abra un archivo o capture vídeo...");
     label->setAutoFillBackground(true);
     label->setAlignment(Qt::AlignCenter);
     label->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
     QPalette paleta = this->palette();
     paleta.setColor(QPalette::Background, QColor(90,90,90));
+    paleta.setColor(QPalette::WindowText, Qt::white);
     label->setPalette(paleta);
     ui->verticalLayoutPrincipal->addWidget(label);
 }

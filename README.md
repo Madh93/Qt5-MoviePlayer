@@ -3,8 +3,8 @@
 
 Práctica 2/3. Sistemas Operativos Avanzados - ULL
 
-- QMovie for play media files
-- QCamera + QAbstractVideoSurface for capture camera
+- QMovie to play media files
+- QCamera + QAbstractVideoSurface to capture camera
 
 
 ![Alt text](http://oi62.tinypic.com/vor1bo.jpg "Sample")

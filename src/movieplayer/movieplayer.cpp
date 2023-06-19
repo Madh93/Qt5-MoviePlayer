@@ -1,4 +1,5 @@
 #include "movieplayer.hpp"
+#include "qstyle.h"
 #include "ui_movieplayer.h"
 
 MoviePlayer::MoviePlayer(QWidget *parent) :
